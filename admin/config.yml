@@ -1,9 +1,9 @@
 backend:
-  name: github
+  name: git-gateway
   repo: yiyue-123/blog
   branch: main
-  base_url: https://decap-oauth.yiyue.tech
-  auth_endpoint: /auth
+  identity_url: https://auth.decapbridge.com/sites/84ef01ab-ee03-4f5a-b3ef-027f3749eeca
+  gateway_url: https://gateway.decapbridge.com
 
 media_folder: static/images
 public_folder: /images
