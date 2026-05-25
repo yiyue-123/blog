@@ -1,0 +1,47 @@
+backend:
+  name: github
+  repo: yiyue-123/blog
+  branch: main
+  base_url: https://decap-oauth.yiyue.tech
+  auth_endpoint: /auth
+
+media_folder: static/images
+public_folder: /images
+
+site_url: https://blog.yiyue.tech
+display_url: https://blog.yiyue.tech
+logo_url: https://blog.yiyue.tech/favicon.svg
+
+locale: zh_Hans
+
+collections:
+  - name: "posts"
+    label: "文章"
+    label_singular: "文章"
+    folder: "content/posts"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    path: "{{year}}-{{month}}-{{day}}-{{slug}}/index"
+    editor:
+      preview: false
+    fields:
+      - { label: "标题", name: "title", widget: "string" }
+      - { label: "发布日期", name: "date", widget: "datetime", format: "YYYY-MM-DDTHH:mm:ssZ" }
+      - { label: "草稿", name: "draft", widget: "boolean", default: true, hint: "草稿不会发布到网站" }
+      - { label: "分类", name: "categories", widget: "list", default: [] }
+      - { label: "标签", name: "tags", widget: "list", default: [] }
+      - { label: "摘要", name: "description", widget: "text", required: false }
+      - { label: "正文", name: "body", widget: "markdown" }
+
+  - name: "pages"
+    label: "页面"
+    label_singular: "页面"
+    editor:
+      preview: false
+    files:
+      - label: "关于页面"
+        name: "about"
+        file: "content/about.md"
+        fields:
+          - { label: "标题", name: "title", widget: "string" }
+          - { label: "正文", name: "body", widget: "markdown" }
