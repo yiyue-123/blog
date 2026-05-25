@@ -6,5 +6,5 @@
       <span>{{ delimit . " / " }}</span>
     {{ end }}
   </p>
-  <p class="summary">{{ with .Description }}{{ . }}{{ else }}{{ .Summary | plainify }}{{ end }}</p>
+  <p class="summary">{{ with .Description }}{{ . }}{{ else }}{{ site.Params.defaultSummary | default "点击阅读这篇文章" }}{{ end }}</p>
 </article>
