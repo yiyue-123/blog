@@ -22,7 +22,7 @@ public int maxDepth(TreeNode root) {
 
 二叉树的直径
 
-```
+```java
 int ans;
     public int diameterOfBinaryTree(TreeNode root) {
         ans = 1;
@@ -44,7 +44,7 @@ int ans;
 
 对称二叉树
 
-```
+```java
 public boolean isSymmetric(TreeNode root) {
         if (root == null) {
             return true;
@@ -70,7 +70,7 @@ public boolean isSymmetric(TreeNode root) {
 
 合并二叉树
 
-```
+```java
 public TreeNode mergeTrees(TreeNode root1, TreeNode root2) {
         if (root1 == null || root2 == null) {
             return root1 == null ? root2 : root1;
@@ -87,7 +87,7 @@ public TreeNode mergeTrees(TreeNode root1, TreeNode root2) {
 
 翻转二叉树
 
-```
+```java
 public TreeNode invertTree(TreeNode root) {
         if (root == null) {
             return null;
@@ -108,7 +108,7 @@ public TreeNode invertTree(TreeNode root) {
 
 树的中序遍历
 
-```
+```java
 public List<Integer> inorderTraversal(TreeNode root) {
         List<Integer> res = new ArrayList<Integer>();
         inorder(root, res);
