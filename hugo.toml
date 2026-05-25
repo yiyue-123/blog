@@ -1,4 +1,4 @@
-baseURL = "https://yiyue.tech/"
+baseURL = "https://blog.yiyue.tech/"
 languageCode = "zh-CN"
 title = "个人技术博客"
 theme = "hermit"
