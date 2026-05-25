@@ -1,0 +1,11 @@
+name = "Hermit"
+license = "MIT"
+licenselink = "https://github.com/Track3/hermit/blob/master/LICENSE"
+description = "A minimal self-contained blog theme inspired by Hermit."
+homepage = "https://example.com/"
+tags = ["blog", "minimal", "responsive"]
+features = ["posts", "taxonomy", "rss", "syntax-highlight"]
+min_version = "0.111.0"
+
+[author]
+  name = "Local"

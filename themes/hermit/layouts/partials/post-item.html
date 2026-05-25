@@ -1,0 +1,10 @@
+<article class="post-item">
+  <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+  <p class="meta">
+    <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format (site.Params.dateFormat | default "2006-01-02") }}</time>
+    {{ with .Params.categories }}
+      <span>{{ delimit . " / " }}</span>
+    {{ end }}
+  </p>
+  <p class="summary">{{ with .Description }}{{ . }}{{ else }}{{ .Summary | plainify }}{{ end }}</p>
+</article>

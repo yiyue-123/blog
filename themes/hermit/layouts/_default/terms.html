@@ -1,0 +1,11 @@
+{{ define "main" }}
+  <section class="intro">
+    <h1>{{ .Title }}</h1>
+    <p>按主题浏览文章。</p>
+  </section>
+  <div class="terms">
+    {{ range .Data.Terms.Alphabetical }}
+      <a class="term-link" href="{{ .Page.RelPermalink }}">{{ .Page.Title }} · {{ .Count }}</a>
+    {{ end }}
+  </div>
+{{ end }}

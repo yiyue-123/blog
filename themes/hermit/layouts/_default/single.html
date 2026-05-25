@@ -1,0 +1,23 @@
+{{ define "main" }}
+  <article>
+    <header class="single-header">
+      <h1 class="single-title">{{ .Title }}</h1>
+      <p class="meta">
+        <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format (site.Params.dateFormat | default "2006-01-02") }}</time>
+        {{ with .Params.categories }}
+          <span>{{ delimit . " / " }}</span>
+        {{ end }}
+      </p>
+    </header>
+    <div class="content">
+      {{ .Content }}
+    </div>
+    {{ with .Params.tags }}
+      <nav class="terms" aria-label="标签">
+        {{ range . }}
+          <a class="term-link" href="{{ (printf "/tags/%s/" (. | urlize)) | relURL }}">#{{ . }}</a>
+        {{ end }}
+      </nav>
+    {{ end }}
+  </article>
+{{ end }}

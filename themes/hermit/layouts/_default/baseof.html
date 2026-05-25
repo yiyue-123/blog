@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="{{ site.LanguageCode | default "zh-CN" }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }} | {{ site.Title }}{{ end }}</title>
+    <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ site.Params.description }}{{ end }}">
+    <link rel="icon" href="{{ "favicon.svg" | relURL }}" type="image/svg+xml">
+    {{ with .OutputFormats.Get "RSS" }}
+      <link rel="alternate" type="application/rss+xml" title="{{ site.Title }}" href="{{ .RelPermalink }}">
+    {{ end }}
+    {{ $css := resources.Get "css/custom.css" | minify | fingerprint }}
+    <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="{{ site.Home.RelPermalink }}">{{ site.Title }}</a>
+        <input class="nav-toggle" id="nav-toggle" type="checkbox" aria-label="打开导航">
+        <label class="nav-toggle-label" for="nav-toggle" aria-hidden="true"><span></span></label>
+        <nav class="site-nav" aria-label="主导航">
+          {{ range site.Menus.main }}
+            <a href="{{ .URL | relURL }}">{{ .Name }}</a>
+          {{ end }}
+        </nav>
+      </div>
+    </header>
+    <main class="site-main">
+      {{ block "main" . }}{{ end }}
+    </main>
+    <footer class="site-footer">
+      <span>© {{ now.Format "2006" }} {{ site.Params.author }} · Powered by Hugo</span>
+    </footer>
+  </body>
+</html>

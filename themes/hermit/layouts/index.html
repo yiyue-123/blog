@@ -1,0 +1,22 @@
+{{ define "main" }}
+  <section class="intro">
+    <h1>{{ site.Title }}</h1>
+    <p>{{ site.Params.description }}</p>
+  </section>
+
+  {{ $paginator := .Paginate (where site.RegularPages "Section" "posts") }}
+  <div class="post-list">
+    {{ range $paginator.Pages }}
+      {{ partial "post-item.html" . }}
+    {{ else }}
+      <p class="summary">还没有文章。</p>
+    {{ end }}
+  </div>
+
+  {{ if gt $paginator.TotalPages 1 }}
+    <nav class="pagination" aria-label="分页">
+      {{ if $paginator.HasPrev }}<a href="{{ $paginator.Prev.URL }}">上一页</a>{{ else }}<span></span>{{ end }}
+      {{ if $paginator.HasNext }}<a href="{{ $paginator.Next.URL }}">下一页</a>{{ end }}
+    </nav>
+  {{ end }}
+{{ end }}

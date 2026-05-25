@@ -1,0 +1,11 @@
+{{ define "main" }}
+  <section class="intro">
+    <h1>{{ .Title }}</h1>
+    <p>共 {{ len .Pages }} 篇文章。</p>
+  </section>
+  <div class="post-list">
+    {{ range .Pages }}
+      {{ partial "post-item.html" . }}
+    {{ end }}
+  </div>
+{{ end }}
