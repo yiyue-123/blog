@@ -1,0 +1,9 @@
+{{- $src := .Destination -}}
+{{- $isRemote := or (strings.HasPrefix $src "http://") (strings.HasPrefix $src "https://") -}}
+{{- $isSpecial := or (strings.HasPrefix $src "/") (strings.HasPrefix $src "data:") -}}
+{{- if and (not $isRemote) (not $isSpecial) -}}
+  {{- with .Page.Resources.GetMatch $src -}}
+    {{- $src = .RelPermalink -}}
+  {{- end -}}
+{{- end -}}
+<img src="{{ $src | safeURL }}" alt="{{ .Text }}"{{ with .Title }} title="{{ . }}"{{ end }} loading="lazy" decoding="async">
