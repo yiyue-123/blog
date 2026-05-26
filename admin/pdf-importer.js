@@ -225,7 +225,7 @@ async function extractPageImages(page, pageNumber, pdfjsLib) {
     images.push({
       ...image,
       pageNumber,
-      name: `pdf-media/page-${pageIndex}-image-${imageIndex}.png`,
+      name: `page-${pageIndex}-image-${imageIndex}.png`,
     });
   }
 
@@ -348,7 +348,7 @@ function buildMarkdown(pages) {
     }
 
     for (const image of page.images) {
-      chunks.push(`![PDF 第 ${page.pageNumber} 页图片](${image.name})`);
+      chunks.push(`![PDF 第 ${page.pageNumber} 页图片](${getPublicMediaPath(image.name)})`);
     }
   }
 
@@ -405,7 +405,7 @@ function rebuildMarkdownFromCurrentState() {
 }
 
 async function saveToLocalProject() {
-  syncMarkdownFromPreview();
+  syncMarkdownFromPreview({ normalizeLegacyMedia: true });
 
   if (!hasGeneratedContent()) {
     setStatus("请先解析 PDF，再保存。", true);
@@ -428,9 +428,12 @@ async function saveToLocalProject() {
     await writeFile(post, "index.md", new Blob([state.markdown], { type: "text/markdown;charset=utf-8" }));
 
     if (state.images.length) {
-      const media = await post.getDirectoryHandle("pdf-media", { create: true });
+      const staticDirectory = await root.getDirectoryHandle("static", { create: true });
+      const imagesDirectory = await staticDirectory.getDirectoryHandle("images", { create: true });
+      const importsDirectory = await imagesDirectory.getDirectoryHandle("pdf-imports", { create: true });
+      const media = await importsDirectory.getDirectoryHandle(getPostFolderName(), { create: true });
       for (const image of state.images) {
-        await writeFile(media, image.name.replace("pdf-media/", ""), image.blob);
+        await writeFile(media, image.name, image.blob);
       }
     }
 
@@ -446,7 +449,7 @@ async function saveToLocalProject() {
 }
 
 async function saveToOnlineRepository() {
-  syncMarkdownFromPreview();
+  syncMarkdownFromPreview({ normalizeLegacyMedia: true });
 
   if (!hasGeneratedContent()) {
     setStatus("请先解析 PDF，再保存到线上仓库。", true);
@@ -461,7 +464,7 @@ async function saveToOnlineRepository() {
     const apiRoot = await getGatewayApiRoot(token);
     const files = [
       ...state.images.map((image) => ({
-        path: `${state.postDir}/${image.name}`,
+        path: `${getStaticMediaDir()}/${image.name}`,
         content: () => blobToBase64(image.blob),
       })),
       {
@@ -673,7 +676,7 @@ async function writeFile(directory, name, blob) {
 }
 
 async function downloadZip() {
-  syncMarkdownFromPreview();
+  syncMarkdownFromPreview({ normalizeLegacyMedia: true });
 
   if (!hasGeneratedContent() || !window.JSZip) {
     if (!hasGeneratedContent()) {
@@ -687,7 +690,7 @@ async function downloadZip() {
     const zip = new window.JSZip();
     zip.file(`${state.postDir}/index.md`, state.markdown);
     for (const image of state.images) {
-      zip.file(`${state.postDir}/${image.name}`, image.blob);
+      zip.file(`${getStaticMediaDir()}/${image.name}`, image.blob);
     }
 
     const blob = await zip.generateAsync({ type: "blob" });
@@ -721,8 +724,24 @@ function renderMediaGrid() {
   }
 }
 
-function syncMarkdownFromPreview() {
-  state.markdown = els.preview.value;
+function syncMarkdownFromPreview(options = {}) {
+  state.markdown = options.normalizeLegacyMedia
+    ? normalizeLegacyMediaReferences(els.preview.value)
+    : els.preview.value;
+
+  if (options.normalizeLegacyMedia && els.preview.value !== state.markdown) {
+    els.preview.value = state.markdown;
+  }
+}
+
+function normalizeLegacyMediaReferences(markdown) {
+  return markdown
+    .replace(/(\]\()(?:\.\/)?pdf-media\/([^)\s]+)/g, (_, prefix, filename) => (
+      `${prefix}${getPublicMediaPath(filename.split("/").pop())}`
+    ))
+    .replace(/(<img\b[^>]*\bsrc=["'])(?:\.\/)?pdf-media\/([^"']+)(["'][^>]*>)/g, (_, prefix, filename, suffix) => (
+      `${prefix}${getPublicMediaPath(filename.split("/").pop())}${suffix}`
+    ));
 }
 
 function hasGeneratedContent() {
@@ -741,6 +760,14 @@ function clearGeneratedContent() {
 function updateOutputPath() {
   state.postDir = `content/posts/${getPostFolderName()}`;
   els.outputPath.textContent = `${state.postDir}/index.md`;
+}
+
+function getStaticMediaDir() {
+  return `static/images/pdf-imports/${getPostFolderName()}`;
+}
+
+function getPublicMediaPath(filename) {
+  return `/images/pdf-imports/${getPostFolderName()}/${filename}`;
 }
 
 function getPostFolderName() {
