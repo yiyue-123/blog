@@ -405,7 +405,7 @@ function rebuildMarkdownFromCurrentState() {
 }
 
 async function saveToLocalProject() {
-  syncMarkdownFromPreview();
+  syncMarkdownFromPreview({ normalizeLegacyMedia: true });
 
   if (!hasGeneratedContent()) {
     setStatus("请先解析 PDF，再保存。", true);
@@ -449,7 +449,7 @@ async function saveToLocalProject() {
 }
 
 async function saveToOnlineRepository() {
-  syncMarkdownFromPreview();
+  syncMarkdownFromPreview({ normalizeLegacyMedia: true });
 
   if (!hasGeneratedContent()) {
     setStatus("请先解析 PDF，再保存到线上仓库。", true);
@@ -676,7 +676,7 @@ async function writeFile(directory, name, blob) {
 }
 
 async function downloadZip() {
-  syncMarkdownFromPreview();
+  syncMarkdownFromPreview({ normalizeLegacyMedia: true });
 
   if (!hasGeneratedContent() || !window.JSZip) {
     if (!hasGeneratedContent()) {
@@ -724,8 +724,24 @@ function renderMediaGrid() {
   }
 }
 
-function syncMarkdownFromPreview() {
-  state.markdown = els.preview.value;
+function syncMarkdownFromPreview(options = {}) {
+  state.markdown = options.normalizeLegacyMedia
+    ? normalizeLegacyMediaReferences(els.preview.value)
+    : els.preview.value;
+
+  if (options.normalizeLegacyMedia && els.preview.value !== state.markdown) {
+    els.preview.value = state.markdown;
+  }
+}
+
+function normalizeLegacyMediaReferences(markdown) {
+  return markdown
+    .replace(/(\]\()(?:\.\/)?pdf-media\/([^)\s]+)/g, (_, prefix, filename) => (
+      `${prefix}${getPublicMediaPath(filename.split("/").pop())}`
+    ))
+    .replace(/(<img\b[^>]*\bsrc=["'])(?:\.\/)?pdf-media\/([^"']+)(["'][^>]*>)/g, (_, prefix, filename, suffix) => (
+      `${prefix}${getPublicMediaPath(filename.split("/").pop())}${suffix}`
+    ));
 }
 
 function hasGeneratedContent() {
