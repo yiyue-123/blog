@@ -1,17 +1,18 @@
 ---
-title: JVM从入门到放弃
-date: 2026-05-26T19:18:00+08:00
+title: "JVM从入门到放弃"
+date: 2026-05-26T19:48:00+08:00
 draft: false
 categories:
-  - 八股
+  - "八股"
 tags:
-  - JVM
-  - 技术
-source_pdf: JVM从入门到放弃.pdf
+  - "JVM"
+  - "技术"
+source_pdf: "JVM从入门到放弃.pdf"
 ---
+
 01优秀的Java开发者
 
-大家都是有经验的Java开发人员，想想为何要学习JVM？\[面试？调优？装逼？]
+大家都是有经验的Java开发人员，想想为何要学习JVM？[面试？调优？装逼？]
 
 不管出于何种原因，总之你得先学好。那怎么学好呢？
 
@@ -29,15 +30,15 @@ Java是一门面向对象的高级编程语言
 
 1.2编程语言
 
-编程语言（英语：programming language），是用来定义\[计算机程序]的\[形式语言]。它是一种被[标
+编程语言（英语：programming language），是用来定义[计算机程序]的[形式语言]。它是一种被[标
 
-准化]的交流技巧，用来向\[计算机]发出指令。一种能够让\[程序员]准确地定义计算机所需要使用数据的
+准化]的交流技巧，用来向[计算机]发出指令。一种能够让[程序员]准确地定义计算机所需要使用数据的
 
 计算机语言，并精确地定义在不同情况下所应当采取的行动。
 
 说白了就是让人类能够和计算机沟通，所以要学习计算机能够懂的语言
 
-1.3计算机\[硬件]能够懂的语言
+1.3计算机[硬件]能够懂的语言
 
 1.3.1计算机发展史
 
@@ -49,7 +50,7 @@ Java是一门面向对象的高级编程语言
 
 1970-至今：大规模集成电路计算机
 
-猜想：未来以蛋白质分子作为原材料，量子计算机\[已经有了]
+猜想：未来以蛋白质分子作为原材料，量子计算机[已经有了]
 
 1.3.2计算机体系结构
 
@@ -57,7 +58,7 @@ Java是一门面向对象的高级编程语言
 
 1.3.3计算机处理数据过程
 
-![PDF 第 1 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-001-image-01.png)
+![PDF 第 1 页图片](pdf-media/page-001-image-01.png)
 
 （1）提取阶段:由输入设备把原始数据或信息输入给计算机存储器存起来
 
@@ -163,7 +164,7 @@ Java官网：https://docs.oracle.com/javase/8/
 
 Reference -> Developer Guides ->定位到:https://docs.oracle.com/javase/8/docs/index.html
 
-![PDF 第 3 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-003-image-01.png)
+![PDF 第 3 页图片](pdf-media/page-003-image-01.png)
 
 JDK8isasupersetofJRE8,andcontainseverythingthatisinJRE8,plus
 
@@ -185,15 +186,15 @@ specification,includingbothstandardandnon-standardJavacomponents.
 
 (2)类文件到JVM
 
-(3)JVM各种折腾\[内部结构、执行方式、垃圾回收、本地调用等]
+(3)JVM各种折腾[内部结构、执行方式、垃圾回收、本地调用等]
 
 2.1源码到类文件
 
 2.1.1源码demo
 
-![PDF 第 4 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-004-image-01.png)
+![PDF 第 4 页图片](pdf-media/page-004-image-01.png)
 
-![PDF 第 4 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-004-image-02.png)
+![PDF 第 4 页图片](pdf-media/page-004-image-02.png)
 
 classPerson{
 
@@ -227,7 +228,7 @@ returnresult;
 
 }
 
-publicstaticvoidmain(String\[]args){
+publicstaticvoidmain(String[]args){
 
 calc(1,2);
 
@@ -241,7 +242,7 @@ calc(1,2);
 
 Person.java ->词法分析器-> tokens流->语法分析器->语法树/抽象语法树
 
-\->语义分析器->注解抽象语法树->字节码生成器-> Person.class文件
+->语义分析器->注解抽象语法树->字节码生成器-> Person.class文件
 
 2.1.3类文件(Class文件)
 
@@ -279,7 +280,7 @@ u2major_version;
 
 u2constant_pool_count;
 
-cp_infoconstant_pool\[constant_pool_count-1];
+cp_infoconstant_pool[constant_pool_count-1];
 
 u2access_flags;
 
@@ -289,19 +290,19 @@ u2super_class;
 
 u2interfaces_count;
 
-u2interfaces\[interfaces_count];
+u2interfaces[interfaces_count];
 
 u2fields_count;
 
-field_infofields\[fields_count];
+field_infofields[fields_count];
 
 u2methods_count;
 
-method_infomethods\[methods_count];
+method_infomethods[methods_count];
 
 u2attributes_count;
 
-attribute_infoattributes\[attributes_count];
+attribute_infoattributes[attributes_count];
 
 }
 
@@ -329,7 +330,7 @@ intheconstant_pooltableplusone.
 
 表示常量池中的数量是62
 
-cp_infoconstant_pool\[constant_pool_count-1]
+cp_infoconstant_pool[constant_pool_count-1]
 
 Theconstant_poolisatableofstructuresrepresentingvariousstring
 
@@ -365,13 +366,13 @@ JVM相对class文件来说可以理解为是操作系统；class文件相对JVM�
 
 语言。
 
-![PDF 第 8 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-008-image-01.png)
+![PDF 第 8 页图片](pdf-media/page-008-image-01.png)
 
 2.1.3.5 Continous analysis
 
 上面分析到常量池中常量的数量是62，接下来我们来具体分析一下这62个常量
 
-cp_infoconstant_pool\[constant_pool_count-1]也就是这块包括的信息
+cp_infoconstant_pool[constant_pool_count-1]也就是这块包括的信息
 
 cp_info其实就是一个表格的形式
 
@@ -381,13 +382,13 @@ cp_info{
 
 u1tag;
 
-u1info\[];
+u1info[];
 
 }
 
 官网：https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.4
 
-![PDF 第 9 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-009-image-01.png)
+![PDF 第 9 页图片](pdf-media/page-009-image-01.png)
 
 (1)往下数一个u1，即0a->10:代表的是CONSTANT_Methodref，表示这是一个方法引用
 
@@ -407,11 +408,11 @@ u2，即00 0a->10:代表的是class_index，表示该方法所属的类在常量
 
 u2，即00 2b->43:代表的是name_and_type_index，表示该方法的名称和类型的索引
 
-\#1=Methodref#10，#43
+#1=Methodref#10，#43
 
 (2)往下数u1，即08->8:表示的是CONSTANT_String，表示字符串类型
 
-![PDF 第 10 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-010-image-01.png)
+![PDF 第 10 页图片](pdf-media/page-010-image-01.png)
 
 CONSTANT_String_info{
 
@@ -425,9 +426,9 @@ u2string_index;
 
 u2，即00 2c->44:代表的是string_index
 
-\#1=Methodref#10，#43
+#1=Methodref#10，#43
 
-\#2=String#44
+#2=String#44
 
 (3)往下数u1，即09->9:表示的是CONSTANT_Fieldref，表示字段类型
 
@@ -447,11 +448,11 @@ u2，即00 0d->13:代表的是class_index
 
 u2，即00 2d->45:代表的是name_and_type_index
 
-\#1=Methodref#10.#43
+#1=Methodref#10.#43
 
-\#2=String#44
+#2=String#44
 
-\#3=Fieldref#13.#45
+#3=Fieldref#13.#45
 
 2.2类文件到虚拟机(类加载机制)
 
@@ -473,7 +474,7 @@ u2，即00 2d->45:代表的是name_and_type_index
 
 （3）在Java堆中生成一个代表这个类的java.lang.Class对象，作为对方法区中这些数据的访问入口
 
-![PDF 第 11 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-011-image-01.png)
+![PDF 第 11 页图片](pdf-media/page-011-image-01.png)
 
 Class对象封装了类在方法区内的数据结构，并且向Java程序员提供了访问方法区内的数据结构的接口。在
 
@@ -501,7 +502,7 @@ publicclassDemo1{
 
 privatestaticinti;
 
-publicstaticvoidmain(String\[]args){
+publicstaticvoidmain(String[]args){
 
 //正常打印出0，因为静态变量i在准备阶段会有默认值0
 
@@ -511,13 +512,13 @@ System.out.println(i);
 
 }
 
-![PDF 第 12 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-012-image-01.png)
+![PDF 第 12 页图片](pdf-media/page-012-image-01.png)
 
-![PDF 第 12 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-012-image-02.png)
+![PDF 第 12 页图片](pdf-media/page-012-image-02.png)
 
 publicclassDemo2{
 
-publicstaticvoidmain(String\[]args){
+publicstaticvoidmain(String[]args){
 
 //编译通不过，因为局部变量没有赋值不能被使用
 
@@ -573,11 +574,11 @@ jar包。
 
 2.2.4.2图解
 
-![PDF 第 13 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-013-image-01.png)
+![PDF 第 13 页图片](pdf-media/page-013-image-01.png)
 
 publicclassDemo3{
 
-publicstaticvoidmain(String\[]args){
+publicstaticvoidmain(String[]args){
 
 //AppClassLoader
 
@@ -609,7 +610,7 @@ null
 
 null
 
-2.2.4.3加载原则\[双亲委派]
+2.2.4.3加载原则[双亲委派]
 
 （1）检查某个类是否已经加载
 
@@ -621,13 +622,13 @@ null
 
 自顶向下，也就是由上层来逐层尝试加载此类。
 
-![PDF 第 14 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-014-image-01.png)
+![PDF 第 14 页图片](pdf-media/page-014-image-01.png)
 
 2.2.4.4破坏双亲委派
 
 （1）tomcat
 
-![PDF 第 15 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-015-image-01.png)
+![PDF 第 15 页图片](pdf-media/page-015-image-01.png)
 
 （2）SPI机制
 
@@ -665,7 +666,7 @@ Eachrun-timeconstantpoolisallocatedfromtheJavaVirtualMachine'smethod
 
 area(§2.5.4).s
 
-![PDF 第 16 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-016-image-01.png)
+![PDF 第 16 页图片](pdf-media/page-016-image-01.png)
 
 2.3.3初步认识
 
@@ -705,9 +706,9 @@ request,theJavaVirtualMachinethrowsanOutOfMemoryError.
 
 如果这时候把从Class文件到装载的第(1)和(2)步合并起来理解的话，可以画个图
 
-![PDF 第 17 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-017-image-01.png)
+![PDF 第 17 页图片](pdf-media/page-017-image-01.png)
 
-![PDF 第 17 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-017-image-02.png)
+![PDF 第 17 页图片](pdf-media/page-017-image-02.png)
 
 值得说明的
 
@@ -761,7 +762,7 @@ createdatthesametimeasthethread.
 
 （2）每一个被线程执行的方法，为该栈中的栈帧，即每个方法对应一个栈帧。
 
-![PDF 第 18 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-018-image-01.png)
+![PDF 第 18 页图片](pdf-media/page-018-image-01.png)
 
 调用一个方法，就会向栈中压入一个栈帧；一个方法调用完成，就会把该栈帧从栈中弹出。
 
@@ -815,7 +816,7 @@ reference to the run-time constant pool)、方法返回地址(Return Address)和
 
 见异常，并且这个异常没有在方法体内得到处理。
 
-![PDF 第 19 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-019-image-01.png)
+![PDF 第 19 页图片](pdf-media/page-019-image-01.png)
 
 结合字节码指令理解栈帧
 
@@ -831,19 +832,19 @@ publicstaticintcalc(int,int);
 
 Code:
 
-0:iconst_3//将int类型常量3压入\[操作数栈]
+0:iconst_3//将int类型常量3压入[操作数栈]
 
-1:istore_0//将int类型值存入\[局部变量0]
+1:istore_0//将int类型值存入[局部变量0]
 
-2:iload_0//从\[局部变量0]中装载int类型值入栈
+2:iload_0//从[局部变量0]中装载int类型值入栈
 
-3:iload_1//从\[局部变量1]中装载int类型值入栈
+3:iload_1//从[局部变量1]中装载int类型值入栈
 
 4:iadd//将栈顶元素弹出栈，执行int类型的加法，结果入栈
 
-5:istore_2//将栈顶int类型值保存到\[局部变量2]中
+5:istore_2//将栈顶int类型值保存到[局部变量2]中
 
-6:iload_2//从\[局部变量2]中装载int类型值入栈
+6:iload_2//从[局部变量2]中装载int类型值入栈
 
 7:ireturn//从方法中返回int类型的数据
 
@@ -865,7 +866,7 @@ parametersaresubsequentlypassedinconsecutivelocalvariablesstartingfrom
 
 localvariable1.
 
-![PDF 第 20 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-020-image-01.png)
+![PDF 第 20 页图片](pdf-media/page-020-image-01.png)
 
 2.3.3.4 The pc Register(程序计数器)
 
@@ -907,7 +908,7 @@ holdareturnAddressoranativepointeronthespecificplatform.
 
 那如果在Java方法执行的时候调用native的方法呢？
 
-![PDF 第 21 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-021-image-01.png)
+![PDF 第 21 页图片](pdf-media/page-021-image-01.png)
 
 2.3.4折腾一下
 
@@ -925,9 +926,9 @@ holdareturnAddressoranativepointeronthespecificplatform.
 
 privatestaticObjectobj=newObject();
 
-![PDF 第 22 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-022-image-01.png)
+![PDF 第 22 页图片](pdf-media/page-022-image-01.png)
 
-![PDF 第 22 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-022-image-02.png)
+![PDF 第 22 页图片](pdf-media/page-022-image-02.png)
 
 2.3.4.3堆指向方法区
 
@@ -943,11 +944,11 @@ What？堆还能指向方法区？
 
 一个Java对象在内存中包括3个部分：对象头、实例数据和对齐填充
 
-![PDF 第 23 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-023-image-01.png)
+![PDF 第 23 页图片](pdf-media/page-023-image-01.png)
 
-![PDF 第 23 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-023-image-02.png)
+![PDF 第 23 页图片](pdf-media/page-023-image-02.png)
 
-![PDF 第 23 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-023-image-03.png)
+![PDF 第 23 页图片](pdf-media/page-023-image-03.png)
 
 2.4 JVM内存模型
 
@@ -983,7 +984,7 @@ S0和S1一样大，也可以叫From和To
 
 时候,爸爸说我成人了,该去社会上闯闯了。于是我就去了年老代那边,年老代里,人很多,并且年龄都挺大的。
 
-![PDF 第 24 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-024-image-01.png)
+![PDF 第 24 页图片](pdf-media/page-024-image-01.png)
 
 2.4.4常见问题
 
@@ -1037,7 +1038,7 @@ Survivor区。假设现在只有一个Survivor区,我们来模拟一下流程:
 
 新生代中Eden:S1:S2为什么是8:1:1？
 
-![PDF 第 25 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-025-image-01.png)
+![PDF 第 25 页图片](pdf-media/page-025-image-01.png)
 
 新生代中的可用内存：复制算法用来担保的内存为9:1
 
@@ -1149,7 +1150,7 @@ mw.visitEnd();
 
 Metaspacetest=newMetaspace();
 
-byte\[]code=cw.toByteArray();
+byte[]code=cw.toByteArray();
 
 Class<?>exampleClass=test.defineClass("Class"+i,code,0,
 
@@ -1195,9 +1196,9 @@ list.addAll(MyMetaspace.createClasses());
 
 java.lang.OutOfMemoryError:Metaspace
 
-atjava.lang.ClassLoader.defineClass1(NativeMethod)~\[na:1.8.0_191]
+atjava.lang.ClassLoader.defineClass1(NativeMethod)~[na:1.8.0_191]
 
-atjava.lang.ClassLoader.defineClass(ClassLoader.java:763)~\[na:1.8.0_191]
+atjava.lang.ClassLoader.defineClass(ClassLoader.java:763)~[na:1.8.0_191]
 
 2.4.5.4虚拟机栈
 
@@ -1215,7 +1216,7 @@ method(i);
 
 }
 
-publicstaticvoidmain(String\[]args){
+publicstaticvoidmain(String[]args){
 
 method(1);
 
@@ -1231,7 +1232,7 @@ StackSpace用来做方法的递归调用时压入StackFrame(栈帧)。所以当�
 
 尽StackSpace，爆出StackOverflow的错误。
 
-\-Xss128k：设置每个线程的堆栈大小。JDK5以后每个线程堆栈大小为1M，以前每个线程堆栈大小为256K。
+-Xss128k：设置每个线程的堆栈大小。JDK5以后每个线程堆栈大小为1M，以前每个线程堆栈大小为256K。
 
 根据应用的线程所需内存大小进行调整。在相同物理内存下，减小这个值能生成更多的线程。但是操作系统对
 
@@ -1265,7 +1266,7 @@ StackSpace用来做方法的递归调用时压入StackFrame(栈帧)。所以当�
 
 2.5.1.1引用计数法
 
-![PDF 第 28 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-028-image-01.png)
+![PDF 第 28 页图片](pdf-media/page-028-image-01.png)
 
 对于某个对象而言，只要应用程序中持有该对象的引用，就说明该对象不是垃圾，如果一个对象没有任
 
@@ -1317,7 +1318,7 @@ GC是由JVM自动完成的，根据JVM系统环境而定，所以时机是不确
 
 2.5.3.1标记-清除(Mark-Sweep)
 
-![PDF 第 29 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-029-image-01.png)
+![PDF 第 29 页图片](pdf-media/page-029-image-01.png)
 
 标记
 
@@ -1345,11 +1346,11 @@ GC是由JVM自动完成的，根据JVM系统环境而定，所以时机是不确
 
 将内存划分为两块相等的区域，每次只使用其中一块，如下图所示：
 
-![PDF 第 30 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-030-image-01.png)
+![PDF 第 30 页图片](pdf-media/page-030-image-01.png)
 
-![PDF 第 30 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-030-image-02.png)
+![PDF 第 30 页图片](pdf-media/page-030-image-02.png)
 
-![PDF 第 30 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-030-image-03.png)
+![PDF 第 30 页图片](pdf-media/page-030-image-03.png)
 
 当其中一块内存使用完了，就将还存活的对象复制到另外一块上面，然后把已经使用过的内存空间一次
 
@@ -1377,11 +1378,11 @@ GC是由JVM自动完成的，根据JVM系统环境而定，所以时机是不确
 
 既然上面介绍了3中垃圾收集算法，那么在堆内存中到底用哪一个呢？
 
-![PDF 第 31 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-031-image-01.png)
+![PDF 第 31 页图片](pdf-media/page-031-image-01.png)
 
-![PDF 第 31 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-031-image-02.png)
+![PDF 第 31 页图片](pdf-media/page-031-image-02.png)
 
-![PDF 第 31 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-031-image-03.png)
+![PDF 第 31 页图片](pdf-media/page-031-image-03.png)
 
 Young区：复制算法(对象在被分配之后，可能生命周期比较短，Young区复制效率比较高)
 
@@ -1411,7 +1412,7 @@ Serial收集器是最基本、发展历史最悠久的收集器，曾经（在JD
 
 应用：Client模式下的默认新生代收集器
 
-![PDF 第 32 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-032-image-01.png)
+![PDF 第 32 页图片](pdf-media/page-032-image-01.png)
 
 2.5.5.2 Serial Old
 
@@ -1433,9 +1434,9 @@ Serial Old收集器是Serial收集器的老年代版本，也是一个单线程�
 
 应用：运行在Server模式下的虚拟机中首选的新生代收集器
 
-![PDF 第 33 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-033-image-01.png)
+![PDF 第 33 页图片](pdf-media/page-033-image-01.png)
 
-![PDF 第 33 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-033-image-02.png)
+![PDF 第 33 页图片](pdf-media/page-033-image-02.png)
 
 2.5.5.4 Parallel Scavenge
 
@@ -1451,9 +1452,9 @@ Parallel Scavenge收集器是一个新生代收集器，它也是使用复制算
 
 的运算任务。
 
-\-XX:MaxGCPauseMillis控制最大的垃圾收集停顿时间，
+-XX:MaxGCPauseMillis控制最大的垃圾收集停顿时间，
 
-\-XX:GCRatio直接设置吞吐量的大小。
+-XX:GCRatio直接设置吞吐量的大小。
 
 2.5.5.5 Parallel Old
 
@@ -1481,7 +1482,7 @@ CMS(Concurrent Mark Sweep)收集器是一种以获取最短回收停顿时间为
 
 浮动垃圾
 
-![PDF 第 34 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-034-image-01.png)
+![PDF 第 34 页图片](pdf-media/page-034-image-01.png)
 
 由于整个过程中，并发标记和并发清除，收集器线程可以与用户线程一起工作，所以总体上来
 
@@ -1505,7 +1506,7 @@ arbage_first_garbage_collection
 
 每个Region大小都是一样的，可以是1M到32M之间的数值，但是必须保证是2的n次幂
 
-如果对象太大，一个Region放不下\[超过Region大小的50%]，那么就会直接放到H中
+如果对象太大，一个Region放不下[超过Region大小的50%]，那么就会直接放到H中
 
 设置Region大小：-XX:G1HeapRegionSize=M
 
@@ -1521,9 +1522,9 @@ arbage_first_garbage_collection
 
 工作过程可以分为如下几步
 
-![PDF 第 35 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-035-image-01.png)
+![PDF 第 35 页图片](pdf-media/page-035-image-01.png)
 
-![PDF 第 35 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-035-image-02.png)
+![PDF 第 35 页图片](pdf-media/page-035-image-02.png)
 
 初始标记（InitialMarking）标记以下GCRoots能够关联的对象，并且修改TAMS的值，需要暂
 
@@ -1567,17 +1568,17 @@ JDK11新引入的ZGC收集器，不管是物理上还是逻辑上，ZGC中已经
 
 适用于内存比较小的嵌入式设备。
 
-并行收集器\[吞吐量优先]->Parallel Scanvenge、Parallel Old
+并行收集器[吞吐量优先]->Parallel Scanvenge、Parallel Old
 
 多条垃圾收集线程并行工作，但此时用户线程仍然处于等待状态。
 
-![PDF 第 36 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-036-image-01.png)
+![PDF 第 36 页图片](pdf-media/page-036-image-01.png)
 
-![PDF 第 36 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-036-image-02.png)
+![PDF 第 36 页图片](pdf-media/page-036-image-02.png)
 
 适用于科学计算、后台处理等若交互场景。
 
-并发收集器\[停顿时间优先]->CMS、G1
+并发收集器[停顿时间优先]->CMS、G1
 
 用户线程和垃圾收集线程同时执行(但并不一定是并行的，可能是交替执行的)，垃圾收集线程在执行的
 
@@ -1647,21 +1648,21 @@ G1中的RSet
 
 （1）串行
 
-\-XX：+UseSerialGC
+-XX：+UseSerialGC
 
-\-XX：+UseSerialOldGC
+-XX：+UseSerialOldGC
 
 （2）并行(吞吐量优先)：
 
-\-XX：+UseParallelGC
+-XX：+UseParallelGC
 
-\-XX：+UseParallelOldGC
+-XX：+UseParallelOldGC
 
 （3）并发收集器(响应时间优先)
 
-\-XX：+UseConcMarkSweepGC
+-XX：+UseConcMarkSweepGC
 
-\-XX：+UseG1GC
+-XX：+UseG1GC
 
 03工欲善其事必先利其器
 
@@ -1677,27 +1678,27 @@ G1中的RSet
 
 3.1.1标准参数
 
-\-version
+-version
 
-\-help
+-help
 
-\-server
+-server
 
-\-cp
+-cp
 
 3.1.2 -X参数
 
 非标准参数，也就是在JDK各个版本中可能会变动
 
-![PDF 第 38 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-038-image-01.png)
+![PDF 第 38 页图片](pdf-media/page-038-image-01.png)
 
-![PDF 第 38 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-038-image-02.png)
+![PDF 第 38 页图片](pdf-media/page-038-image-02.png)
 
-\-Xint解释执行
+-Xint解释执行
 
-\-Xcomp第一次使用就编译成本地代码
+-Xcomp第一次使用就编译成本地代码
 
-\-Xmixed混合模式，JVM自己来决定
+-Xmixed混合模式，JVM自己来决定
 
 3.1.3 -XX参数
 
@@ -1707,11 +1708,11 @@ G1中的RSet
 
 a.Boolean类型
 
-格式：-XX:\[+-]<name>+或-表示启用或者禁用name属性
+格式：-XX:[+-]<name>+或-表示启用或者禁用name属性
 
 比如：-XX:+UseConcMarkSweepGC表示启用CMS类型的垃圾回收器
 
-\-XX:+UseG1GC表示启用G1类型的垃圾回收器
+-XX:+UseG1GC表示启用G1类型的垃圾回收器
 
 b.非Boolean类型
 
@@ -1721,11 +1722,11 @@ b.非Boolean类型
 
 3.1.4其他参数
 
-\-Xms1000M等价于-XX:InitialHeapSize=1000M
+-Xms1000M等价于-XX:InitialHeapSize=1000M
 
-\-Xmx1000M等价于-XX:MaxHeapSize=1000M
+-Xmx1000M等价于-XX:MaxHeapSize=1000M
 
-\-Xss100等价于-XX:ThreadStackSize=100
+-Xss100等价于-XX:ThreadStackSize=100
 
 所以这块也相当于是-XX类型的参数
 
@@ -1733,9 +1734,9 @@ b.非Boolean类型
 
 java -XX:+PrintFlagsFinal -version > flags.txt
 
-![PDF 第 39 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-039-image-01.png)
+![PDF 第 39 页图片](pdf-media/page-039-image-01.png)
 
-![PDF 第 39 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-039-image-02.png)
+![PDF 第 39 页图片](pdf-media/page-039-image-02.png)
 
 值得注意的是"="表示默认值，":="表示被用户或JVM修改后的值
 
@@ -1767,7 +1768,7 @@ web容器比如tomcat，可以在脚本中的进行设置
 
 (1)设置堆内存大小和参数打印
 
-\-Xmx100M-Xms100M-XX:+PrintFlagsFinal
+-Xmx100M-Xms100M-XX:+PrintFlagsFinal
 
 (2)查询+PrintFlagsFinal的值
 
@@ -1789,85 +1790,85 @@ web容器比如tomcat，可以在脚本中的进行设置
 
 3.1.8常用参数含义
 
-![PDF 第 40 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-040-image-01.png)
+![PDF 第 40 页图片](pdf-media/page-040-image-01.png)
 
 参数含义说明
 
 如果设置大于1，虽然编译速度会提高，但是同样影响系统稳定性，会增加JVM
 
-\-XX:CICompilerCount=3最大并行编译数
+-XX:CICompilerCount=3最大并行编译数
 
 崩溃的可能
 
-\-XX:InitialHeapSize=100M初始化堆大小简写-Xms100M
+-XX:InitialHeapSize=100M初始化堆大小简写-Xms100M
 
-\-XX:MaxHeapSize=100M最大堆大小简写-Xms100M
+-XX:MaxHeapSize=100M最大堆大小简写-Xms100M
 
-\-XX:NewSize=20M设置年轻代的大小
+-XX:NewSize=20M设置年轻代的大小
 
-\-XX:MaxNewSize=50M年轻代最大大小
+-XX:MaxNewSize=50M年轻代最大大小
 
-\-XX:OldSize=50M设置老年代大小
+-XX:OldSize=50M设置老年代大小
 
-\-XX:MetaspaceSize=50M设置方法区大小
+-XX:MetaspaceSize=50M设置方法区大小
 
-\-XX:MaxMetaspaceSize=50M方法区最大大小
+-XX:MaxMetaspaceSize=50M方法区最大大小
 
-\-XX:+UseParallelGC使用UseParallelGC新生代，吞吐量优先
+-XX:+UseParallelGC使用UseParallelGC新生代，吞吐量优先
 
-\-XX:+UseParallelOldGC使用UseParallelOldGC老年代，吞吐量优先
+-XX:+UseParallelOldGC使用UseParallelOldGC老年代，吞吐量优先
 
-\-XX:+UseConcMarkSweepGC使用CMS老年代，停顿时间优先
+-XX:+UseConcMarkSweepGC使用CMS老年代，停顿时间优先
 
-\-XX:+UseG1GC使用G1GC新生代，老年代，停顿时间优先
+-XX:+UseG1GC使用G1GC新生代，老年代，停顿时间优先
 
-\-XX:NewRatio新老生代的比值比如-XX:Ratio=4，则表示新生代:老年代=1:4，也就是新生代占整个堆内存的1/5
+-XX:NewRatio新老生代的比值比如-XX:Ratio=4，则表示新生代:老年代=1:4，也就是新生代占整个堆内存的1/5
 
 比如-XX:SurvivorRatio=8，也就是(S0+S1):Eden=2:8，也就是一个S占整个新生
 
-\-XX:SurvivorRatio两个S区和Eden区的比值
+-XX:SurvivorRatio两个S区和Eden区的比值
 
 代的1/10
 
-\-XX:+HeapDumpOnOutOfMemoryError启动堆内存溢出打印当JVM堆内存发生溢出时，也就是OOM，自动生成dump文件
+-XX:+HeapDumpOnOutOfMemoryError启动堆内存溢出打印当JVM堆内存发生溢出时，也就是OOM，自动生成dump文件
 
-\-XX:HeapDumpPath=heap.hprof指定堆内存溢出打印目录表示在当前目录生成一个heap.hprof文件
+-XX:HeapDumpPath=heap.hprof指定堆内存溢出打印目录表示在当前目录生成一个heap.hprof文件
 
-\-XX:+PrintGCDetails-
+-XX:+PrintGCDetails-
 
 XX:+PrintGCTimeStamps-打印出GC日志可以使用不同的垃圾收集器，对比查看GC情况
 
 XX:+PrintGCDateStamps-Xloggc:g1-gc.log
 
-\-Xss128k设置每个线程的堆栈大小经验值是3000-5000最佳
+-Xss128k设置每个线程的堆栈大小经验值是3000-5000最佳
 
-\-XX:MaxTenuringThreshold=6提升年老代的最大临界值默认值为15
+-XX:MaxTenuringThreshold=6提升年老代的最大临界值默认值为15
 
 G1之类的垃圾收集器用它来触发并发GC周期,基于整个堆的使用率,而不只是某
 
-\-XX:InitiatingHeapOccupancyPercent启动并发GC周期时堆内存使用占比
+-XX:InitiatingHeapOccupancyPercent启动并发GC周期时堆内存使用占比
 
 一代内存的使用比.值为0则表示”一直执行GC循环”.默认值为45.
 
-\-XX:G1HeapWastePercent允许的浪费堆空间的占比默认是10%，如果并发标记可回收的空间小于10%,则不会触发MixedGC。
+-XX:G1HeapWastePercent允许的浪费堆空间的占比默认是10%，如果并发标记可回收的空间小于10%,则不会触发MixedGC。
 
 暂停时间不能太小，太小的话就会导致出现G1跟不上垃圾产生的速度。最终退
 
-\-XX:MaxGCPauseMillis=200msG1最大停顿时间化成FullGC。所以对这个参数的调优是一个持续的过程，逐步调整到最佳状
+-XX:MaxGCPauseMillis=200msG1最大停顿时间化成FullGC。所以对这个参数的调优是一个持续的过程，逐步调整到最佳状
 
 态。
 
-\-XX:ConcGCThreads=n并发垃圾收集器使用的线程数量默认值随JVM运行的平台不同而不同
+-XX:ConcGCThreads=n并发垃圾收集器使用的线程数量默认值随JVM运行的平台不同而不同
 
-\-XX:G1MixedGCLiveThresholdPercent=65混合垃圾回收周期中要包括的旧区域设置占用率阈值默认占用率为65%
+-XX:G1MixedGCLiveThresholdPercent=65混合垃圾回收周期中要包括的旧区域设置占用率阈值默认占用率为65%
 
 设置标记周期完成后，对存活数据上限为
 
-\-XX:G1MixedGCCountTarget=8G1MixedGCLIveThresholdPercent的旧区域执行混合垃默认8次混合垃圾回收，混合回收的目标是要控制在此目标次数以内
+-XX:G1MixedGCCountTarget=8G1MixedGCLIveThresholdPercent的旧区域执行混合垃默认8次混合垃圾回收，混合回收的目标是要控制在此目标次数以内
 
 圾回收的目标次数
 
-\-XX:G1OldCSetRegionThresholdPercent=1描述MixedGC时，OldRegion被加入到CSet中默认情况下，G1只把10%的OldRegion加入到CSet中
+-XX:G1OldCSetRegionThresholdPercent=1描述MixedGC时，OldRegion被加入到CSet中默认情况下，G1只把10%的OldRegion加入到CSet中
 
 3.2常用命令
 
@@ -1883,7 +1884,7 @@ accesspermissions.
 
 3.2.2 jinfo
 
-![PDF 第 41 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-041-image-01.png)
+![PDF 第 41 页图片](pdf-media/page-041-image-01.png)
 
 （1）实时查看和调整JVM配置参数
 
@@ -1907,7 +1908,7 @@ jinfo-flagUseG1GCPID
 
 参数只有被标记为manageable的flags可以被实时修改
 
-jinfo-flag\[+|-]PID
+jinfo-flag[+|-]PID
 
 jinfo-flag<name>=<value>PID
 
@@ -1929,9 +1930,9 @@ vmidoption.
 
 jstat-classPID100010查看某个java进程的类装载信息，每1000毫秒输出一次，共输出10次
 
-![PDF 第 42 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-042-image-01.png)
+![PDF 第 42 页图片](pdf-media/page-042-image-01.png)
 
-![PDF 第 42 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-042-image-02.png)
+![PDF 第 42 页图片](pdf-media/page-042-image-02.png)
 
 （3）查看垃圾收集信息
 
@@ -1949,11 +1950,11 @@ process,corefile,orremotedebugserver.
 
 jstackPID
 
-![PDF 第 43 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-043-image-01.png)
+![PDF 第 43 页图片](pdf-media/page-043-image-01.png)
 
-![PDF 第 43 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-043-image-02.png)
+![PDF 第 43 页图片](pdf-media/page-043-image-02.png)
 
-![PDF 第 43 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-043-image-03.png)
+![PDF 第 43 页图片](pdf-media/page-043-image-03.png)
 
 (4)排查死锁案例
 
@@ -1965,7 +1966,7 @@ publicclassDeadLockDemo
 
 {
 
-publicstaticvoidmain(String\[]args)
+publicstaticvoidmain(String[]args)
 
 {
 
@@ -2023,7 +2024,7 @@ synchronized(MyLock.obj2){
 
 System.out.println(Thread.currentThread().getName()+"---
 
-\-if获得obj2锁");
+-if获得obj2锁");
 
 }
 
@@ -2047,7 +2048,7 @@ synchronized(MyLock.obj1){
 
 System.out.println(Thread.currentThread().getName()+"---
 
-\-否则获得obj1锁");
+-否则获得obj1锁");
 
 }
 
@@ -2079,15 +2080,15 @@ specifiedprocess,corefile,orremotedebugserver.
 
 jmap-heapPID
 
-![PDF 第 45 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-045-image-01.png)
+![PDF 第 45 页图片](pdf-media/page-045-image-01.png)
 
-![PDF 第 45 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-045-image-02.png)
+![PDF 第 45 页图片](pdf-media/page-045-image-02.png)
 
-![PDF 第 45 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-045-image-03.png)
+![PDF 第 45 页图片](pdf-media/page-045-image-03.png)
 
 jinfo-flagUsePSAdaptiveSurvivorSizePolicy35352
 
-\-XX:SurvivorRatio=8
+-XX:SurvivorRatio=8
 
 （3）dump出堆内存相关信息
 
@@ -2097,7 +2098,7 @@ jmap-dump:format=b,file=heap.hprofPID
 
 一般在开发中，JVM参数可以加上下面两句，这样内存溢出时，会自动dump出该文件
 
-\-XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=heap.hprof
+-XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=heap.hprof
 
 设置堆内存大小:-Xms20M-Xmx20M
 
@@ -2109,9 +2110,9 @@ jmap-dump:format=b,file=heap.hprofPID
 
 3.3常用工具
 
-![PDF 第 46 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-046-image-01.png)
+![PDF 第 46 页图片](pdf-media/page-046-image-01.png)
 
-![PDF 第 46 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-046-image-02.png)
+![PDF 第 46 页图片](pdf-media/page-046-image-02.png)
 
 参数也了解了，命令也知道了，关键是用起来不是很方便，要是有图形化的界面就好了。
 
@@ -2151,7 +2152,7 @@ JAVA_OPTS="$JAVA_OPTS-Dcom.sun.management.jmxremote-
 
 Djava.rmi.server.hostname=39.100.39.63-Dcom.sun.management.jmxremote.port=8998
 
-\-Dcom.sun.management.jmxremote.ssl=false-
+-Dcom.sun.management.jmxremote.ssl=false-
 
 Dcom.sun.management.jmxremote.authenticate=true-
 
@@ -2231,7 +2232,7 @@ or
 
 java-jararthas-boot.jar-h
 
-\#然后可以选择一个Java进程
+#然后可以选择一个Java进程
 
 3.3.3.2常用命令
 
@@ -2247,7 +2248,7 @@ session:查看当前会话信息
 
 quit:退出arthas客户端
 
-- - -
+---
 
 dashboard:当前进程的实时数据面板
 
@@ -2257,7 +2258,7 @@ jvm:查看当前JVM的信息
 
 sysprop:查看JVM的系统属性
 
-- - -
+---
 
 sc:查看JVM已经加载的类信息
 
@@ -2265,7 +2266,7 @@ dump:dump已经加载类的bytecode到特定目录
 
 jad:反编译指定已加载类的源码
 
-- - -
+---
 
 monitor:方法执行监控
 
@@ -2299,7 +2300,7 @@ jmap-dump:format=b,file=heap.hprof44808
 
 自动
 
-\-XX:+HeapDumpOnOutOfMemoryError-XX:HeapDumpPath=heap.hprof
+-XX:+HeapDumpOnOutOfMemoryError-XX:HeapDumpPath=heap.hprof
 
 （2）Dump的信息
 
@@ -2363,7 +2364,7 @@ https://console.perfma.com/
 
 XX:+PrintGCDetails-XX:+PrintGCTimeStamps-XX:+PrintGCDateStamps
 
-\-Xloggc:$CATALINA_HOME/logs/gc.log
+-Xloggc:$CATALINA_HOME/logs/gc.log
 
 3.3.5.1不同收集器日志
 
@@ -2377,7 +2378,7 @@ ParallelGC。
 
 2019-06-10T23:21:53.305+0800:1.303:[GC(AllocationFailure)[PSYoungGen:
 
-65536K\[Young区回收前]->10748K[Young区回收后](76288K[Young区总大小])]65536K[整个
+65536K[Young区回收前]->10748K[Young区回收后](76288K[Young区总大小])]65536K[整个
 
 堆回收前]->15039K[整个堆回收后](251392K[整个堆总大小]),0.0113277secs][Times:
 
@@ -2401,47 +2402,47 @@ G1日志格式参考链接：https://blogs.oracle.com/poonam/understanding-g1-gc
 
 参数设置：-XX:+UseG1GC-Xloggc:g1-gc.log
 
-\-XX:+UseG1GC#使用了G1垃圾收集器
+-XX:+UseG1GC#使用了G1垃圾收集器
 
-\#什么时候发生的GC，相对的时间刻，GC发生的区域young，总共花费的时间，0.00478s，
+#什么时候发生的GC，相对的时间刻，GC发生的区域young，总共花费的时间，0.00478s，
 
-\#Itisastop-the-worldactivityandall
+#Itisastop-the-worldactivityandall
 
-\#theapplicationthreadsarestoppedatasafepointduringthistime.
+#theapplicationthreadsarestoppedatasafepointduringthistime.
 
 2019-12-18T16:06:46.508+0800:0.458:[GCpause(G1EvacuationPause)
 
 (young),0.0047804secs]
 
-\#多少个垃圾回收线程，并行的时间
+#多少个垃圾回收线程，并行的时间
 
-\[ParallelTime:3.0ms,GCWorkers:4]
+[ParallelTime:3.0ms,GCWorkers:4]
 
-\#GC线程开始相对于上面的0.458的时间刻
+#GC线程开始相对于上面的0.458的时间刻
 
-\[GCWorkerStart(ms):Min:458.5,Avg:458.5,Max:458.5,Diff:0.0]
+[GCWorkerStart(ms):Min:458.5,Avg:458.5,Max:458.5,Diff:0.0]
 
-\#Thisgivesusthetimespentbyeachworkerthreadscanningtheroots
+#Thisgivesusthetimespentbyeachworkerthreadscanningtheroots
 
-\#(globals,registers,threadstacksandVMdatastructures).
+#(globals,registers,threadstacksandVMdatastructures).
 
-\[ExtRootScanning(ms):Min:0.2,Avg:0.4,Max:0.7,Diff:0.5,Sum:1.7]
+[ExtRootScanning(ms):Min:0.2,Avg:0.4,Max:0.7,Diff:0.5,Sum:1.7]
 
-\#UpdateRSgivesusthetimeeachthreadspentinupdatingtheRemembered
+#UpdateRSgivesusthetimeeachthreadspentinupdatingtheRemembered
 
 Sets.
 
-\[UpdateRS(ms):Min:0.0,Avg:0.0,Max:0.0,Diff:0.0,Sum:0.0]
+[UpdateRS(ms):Min:0.0,Avg:0.0,Max:0.0,Diff:0.0,Sum:0.0]
 
 ...
 
-\#主要是Eden区变大了，进行了调整
+#主要是Eden区变大了，进行了调整
 
 [Eden:14.0M(14.0M)->0.0B(16.0M)Survivors:0.0B->2048.0KHeap:
 
 14.0M(256.0M)->3752.5K(256.0M)]
 
-![PDF 第 51 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-051-image-01.png)
+![PDF 第 51 页图片](pdf-media/page-051-image-01.png)
 
 3.3.5.2 GCViewer
 
@@ -2451,9 +2452,9 @@ java -jar gcviewer-1.36-SNAPSHOT.jar
 
 http://gceasy.io
 
-![PDF 第 52 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-052-image-01.png)
+![PDF 第 52 页图片](pdf-media/page-052-image-01.png)
 
-![PDF 第 52 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-052-image-02.png)
+![PDF 第 52 页图片](pdf-media/page-052-image-02.png)
 
 3.3.5.4 gcplot
 
@@ -2463,7 +2464,7 @@ https://it.gcplot.com/
 
 Person.java源码文件是Java这门高级开发语言，对程序员友好，方便我们开发。
 
-javac编译器将Person.java源码文件编译成class文件\[我们把这里的编译称为前期编译]，交给JVM运
+javac编译器将Person.java源码文件编译成class文件[我们把这里的编译称为前期编译]，交给JVM运
 
 行，因为JVM只能认识class字节码文件。同时在不同的操作系统上安装对应版本的JDK，里面包含了各自屏
 
@@ -2475,9 +2476,9 @@ javac编译器将Person.java源码文件编译成class文件\[我们把这里的
 
 上，那么由字节码转变为机器码是谁来做的呢？说白了就是谁来执行这些字节码指令的呢？这就是执行引擎。
 
-![PDF 第 53 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-053-image-01.png)
+![PDF 第 53 页图片](pdf-media/page-053-image-01.png)
 
-![PDF 第 53 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-053-image-02.png)
+![PDF 第 53 页图片](pdf-media/page-053-image-02.png)
 
 3.4.1解释执行
 
@@ -2519,7 +2520,7 @@ C2再次编译
 
 3.4.5 AOT和Graal VM
 
-![PDF 第 54 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-054-image-01.png)
+![PDF 第 54 页图片](pdf-media/page-054-image-01.png)
 
 3.4.5.1 AOT
 
@@ -2581,9 +2582,9 @@ Graal既可以作为动态编译器，在运行时编译热点方法；也可以
 
 JVM Architecture：https://www.oracle.com/technetwork/tutorials/tutorials-1876574.html
 
-![PDF 第 56 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-056-image-01.png)
+![PDF 第 56 页图片](pdf-media/page-056-image-01.png)
 
-![PDF 第 56 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-056-image-02.png)
+![PDF 第 56 页图片](pdf-media/page-056-image-02.png)
 
 04性能优化
 
@@ -2611,9 +2612,9 @@ JVM的性能优化可以分为代码层面和非代码层面。
 
 每台机器配置2c4G，以每秒3000笔订单为例，整个过程持续60秒
 
-![PDF 第 57 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-057-image-01.png)
+![PDF 第 57 页图片](pdf-media/page-057-image-01.png)
 
-![PDF 第 57 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-057-image-02.png)
+![PDF 第 57 页图片](pdf-media/page-057-image-02.png)
 
 4.1.2内存溢出(OOM)
 
@@ -2623,7 +2624,7 @@ JVM的性能优化可以分为代码层面和非代码层面。
 
 （2）内存泄露导致内存溢出
 
-4.1.2.1大并发\[秒杀]
+4.1.2.1大并发[秒杀]
 
 浏览器缓存、本地缓存、验证码
 
@@ -2631,7 +2632,7 @@ CDN静态资源服务器
 
 集群+负载均衡
 
-动静态资源分离、限流\[基于令牌桶、漏桶算法]
+动静态资源分离、限流[基于令牌桶、漏桶算法]
 
 应用级别缓存、接口防刷限流、队列、Tomcat性能优化
 
@@ -2653,11 +2654,11 @@ publicclassTLController{
 
 publicStringtl(HttpServletRequestrequest){
 
-ThreadLocal<Byte\[]>tl=newThreadLocal<Byte\[]>();
+ThreadLocal<Byte[]>tl=newThreadLocal<Byte[]>();
 
 //1MB
 
-tl.set(newByte\[1024*1024]);
+tl.set(newByte[1024*1024]);
 
 return"ok";
 
@@ -2729,11 +2730,11 @@ ThroughputMinPauseMaxPauseAvgPauseGCcount
 
 （2）调整内存大小再获取gc日志分析
 
-\-XX:MetaspaceSize=100M
+-XX:MetaspaceSize=100M
 
-\-Xms300M
+-Xms300M
 
-\-Xmx300M
+-Xmx300M
 
 比如设置堆内存的大小，获取到gc日志，使用GCViewer分析吞吐量和响应时间
 
@@ -2743,7 +2744,7 @@ ThroughputMinPauseMaxPauseAvgPauseGCcount
 
 （3）调整最大停顿时间
 
-\-XX:MaxGCPauseMillis=200设置最大GC停顿时间指标
+-XX:MaxGCPauseMillis=200设置最大GC停顿时间指标
 
 比如设置最大停顿时间，获取到gc日志，使用GCViewer分析吞吐量和响应时间
 
@@ -2753,7 +2754,7 @@ ThroughputMinPauseMaxPauseAvgPauseGCcount
 
 （4）启动并发GC时堆内存占用百分比
 
-\-XX:InitiatingHeapOccupancyPercent=45
+-XX:InitiatingHeapOccupancyPercent=45
 
 G1用它来触发并发GC周期,基于整个堆的使用率,而不只是某一代内存的使用比例。值为0则表示“一直执行
 
@@ -2803,13 +2804,13 @@ ConcGCThreads。
 
 （4）MixedGC调优
 
-\-XX:InitiatingHeapOccupancyPercent
+-XX:InitiatingHeapOccupancyPercent
 
-\-XX:G1MixedGCLiveThresholdPercent
+-XX:G1MixedGCLiveThresholdPercent
 
-\-XX:G1MixedGCCountTarger
+-XX:G1MixedGCCountTarger
 
-\-XX:G1OldCSetRegionThresholdPercent
+-XX:G1OldCSetRegionThresholdPercent
 
 （5）适当增加堆内存大小
 
@@ -2851,7 +2852,7 @@ Metaspace区域引起的。可以通过MetaspaceSize适当增加其大家，比�
 
 （3）major gc和full gc的区别
 
-![PDF 第 61 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-061-image-01.png)
+![PDF 第 61 页图片](pdf-media/page-061-image-01.png)
 
 MajorGC在很多参考资料中是等价于FullGC的，我们也可以发现很多性能监测工具中只有MinorGC
 
