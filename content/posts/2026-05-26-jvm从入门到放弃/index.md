@@ -58,7 +58,7 @@ Java是一门面向对象的高级编程语言
 
 1.3.3计算机处理数据过程
 
-![PDF 第 1 页图片](pdf-media/page-001-image-01.png)
+![PDF 第 1 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-001-image-01.png)
 
 （1）提取阶段:由输入设备把原始数据或信息输入给计算机存储器存起来
 
@@ -164,7 +164,7 @@ Java官网：https://docs.oracle.com/javase/8/
 
 Reference -> Developer Guides ->定位到:https://docs.oracle.com/javase/8/docs/index.html
 
-![PDF 第 3 页图片](pdf-media/page-003-image-01.png)
+![PDF 第 3 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-003-image-01.png)
 
 JDK8isasupersetofJRE8,andcontainseverythingthatisinJRE8,plus
 
@@ -192,9 +192,9 @@ specification,includingbothstandardandnon-standardJavacomponents.
 
 2.1.1源码demo
 
-![PDF 第 4 页图片](pdf-media/page-004-image-01.png)
+![PDF 第 4 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-004-image-01.png)
 
-![PDF 第 4 页图片](pdf-media/page-004-image-02.png)
+![PDF 第 4 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-004-image-02.png)
 
 classPerson{
 
@@ -366,7 +366,7 @@ JVM相对class文件来说可以理解为是操作系统；class文件相对JVM�
 
 语言。
 
-![PDF 第 8 页图片](pdf-media/page-008-image-01.png)
+![PDF 第 8 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-008-image-01.png)
 
 2.1.3.5 Continous analysis
 
@@ -388,7 +388,7 @@ u1info[];
 
 官网：https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.4
 
-![PDF 第 9 页图片](pdf-media/page-009-image-01.png)
+![PDF 第 9 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-009-image-01.png)
 
 (1)往下数一个u1，即0a->10:代表的是CONSTANT_Methodref，表示这是一个方法引用
 
@@ -412,7 +412,7 @@ u2，即00 2b->43:代表的是name_and_type_index，表示该方法的名称和�
 
 (2)往下数u1，即08->8:表示的是CONSTANT_String，表示字符串类型
 
-![PDF 第 10 页图片](pdf-media/page-010-image-01.png)
+![PDF 第 10 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-010-image-01.png)
 
 CONSTANT_String_info{
 
@@ -474,7 +474,7 @@ u2，即00 2d->45:代表的是name_and_type_index
 
 （3）在Java堆中生成一个代表这个类的java.lang.Class对象，作为对方法区中这些数据的访问入口
 
-![PDF 第 11 页图片](pdf-media/page-011-image-01.png)
+![PDF 第 11 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-011-image-01.png)
 
 Class对象封装了类在方法区内的数据结构，并且向Java程序员提供了访问方法区内的数据结构的接口。在
 
@@ -512,9 +512,9 @@ System.out.println(i);
 
 }
 
-![PDF 第 12 页图片](pdf-media/page-012-image-01.png)
+![PDF 第 12 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-012-image-01.png)
 
-![PDF 第 12 页图片](pdf-media/page-012-image-02.png)
+![PDF 第 12 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-012-image-02.png)
 
 publicclassDemo2{
 
@@ -574,7 +574,7 @@ jar包。
 
 2.2.4.2图解
 
-![PDF 第 13 页图片](pdf-media/page-013-image-01.png)
+![PDF 第 13 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-013-image-01.png)
 
 publicclassDemo3{
 
@@ -622,13 +622,13 @@ null
 
 自顶向下，也就是由上层来逐层尝试加载此类。
 
-![PDF 第 14 页图片](pdf-media/page-014-image-01.png)
+![PDF 第 14 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-014-image-01.png)
 
 2.2.4.4破坏双亲委派
 
 （1）tomcat
 
-![PDF 第 15 页图片](pdf-media/page-015-image-01.png)
+![PDF 第 15 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-015-image-01.png)
 
 （2）SPI机制
 
@@ -666,7 +666,7 @@ Eachrun-timeconstantpoolisallocatedfromtheJavaVirtualMachine'smethod
 
 area(§2.5.4).s
 
-![PDF 第 16 页图片](pdf-media/page-016-image-01.png)
+![PDF 第 16 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-016-image-01.png)
 
 2.3.3初步认识
 
@@ -706,9 +706,9 @@ request,theJavaVirtualMachinethrowsanOutOfMemoryError.
 
 如果这时候把从Class文件到装载的第(1)和(2)步合并起来理解的话，可以画个图
 
-![PDF 第 17 页图片](pdf-media/page-017-image-01.png)
+![PDF 第 17 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-017-image-01.png)
 
-![PDF 第 17 页图片](pdf-media/page-017-image-02.png)
+![PDF 第 17 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-017-image-02.png)
 
 值得说明的
 
@@ -762,7 +762,7 @@ createdatthesametimeasthethread.
 
 （2）每一个被线程执行的方法，为该栈中的栈帧，即每个方法对应一个栈帧。
 
-![PDF 第 18 页图片](pdf-media/page-018-image-01.png)
+![PDF 第 18 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-018-image-01.png)
 
 调用一个方法，就会向栈中压入一个栈帧；一个方法调用完成，就会把该栈帧从栈中弹出。
 
@@ -816,7 +816,7 @@ reference to the run-time constant pool)、方法返回地址(Return Address)和
 
 见异常，并且这个异常没有在方法体内得到处理。
 
-![PDF 第 19 页图片](pdf-media/page-019-image-01.png)
+![PDF 第 19 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-019-image-01.png)
 
 结合字节码指令理解栈帧
 
@@ -866,7 +866,7 @@ parametersaresubsequentlypassedinconsecutivelocalvariablesstartingfrom
 
 localvariable1.
 
-![PDF 第 20 页图片](pdf-media/page-020-image-01.png)
+![PDF 第 20 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-020-image-01.png)
 
 2.3.3.4 The pc Register(程序计数器)
 
@@ -908,7 +908,7 @@ holdareturnAddressoranativepointeronthespecificplatform.
 
 那如果在Java方法执行的时候调用native的方法呢？
 
-![PDF 第 21 页图片](pdf-media/page-021-image-01.png)
+![PDF 第 21 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-021-image-01.png)
 
 2.3.4折腾一下
 
@@ -926,9 +926,9 @@ holdareturnAddressoranativepointeronthespecificplatform.
 
 privatestaticObjectobj=newObject();
 
-![PDF 第 22 页图片](pdf-media/page-022-image-01.png)
+![PDF 第 22 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-022-image-01.png)
 
-![PDF 第 22 页图片](pdf-media/page-022-image-02.png)
+![PDF 第 22 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-022-image-02.png)
 
 2.3.4.3堆指向方法区
 
@@ -944,11 +944,11 @@ What？堆还能指向方法区？
 
 一个Java对象在内存中包括3个部分：对象头、实例数据和对齐填充
 
-![PDF 第 23 页图片](pdf-media/page-023-image-01.png)
+![PDF 第 23 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-023-image-01.png)
 
-![PDF 第 23 页图片](pdf-media/page-023-image-02.png)
+![PDF 第 23 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-023-image-02.png)
 
-![PDF 第 23 页图片](pdf-media/page-023-image-03.png)
+![PDF 第 23 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-023-image-03.png)
 
 2.4 JVM内存模型
 
@@ -984,7 +984,7 @@ S0和S1一样大，也可以叫From和To
 
 时候,爸爸说我成人了,该去社会上闯闯了。于是我就去了年老代那边,年老代里,人很多,并且年龄都挺大的。
 
-![PDF 第 24 页图片](pdf-media/page-024-image-01.png)
+![PDF 第 24 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-024-image-01.png)
 
 2.4.4常见问题
 
@@ -1038,7 +1038,7 @@ Survivor区。假设现在只有一个Survivor区,我们来模拟一下流程:
 
 新生代中Eden:S1:S2为什么是8:1:1？
 
-![PDF 第 25 页图片](pdf-media/page-025-image-01.png)
+![PDF 第 25 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-025-image-01.png)
 
 新生代中的可用内存：复制算法用来担保的内存为9:1
 
@@ -1266,7 +1266,7 @@ StackSpace用来做方法的递归调用时压入StackFrame(栈帧)。所以当�
 
 2.5.1.1引用计数法
 
-![PDF 第 28 页图片](pdf-media/page-028-image-01.png)
+![PDF 第 28 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-028-image-01.png)
 
 对于某个对象而言，只要应用程序中持有该对象的引用，就说明该对象不是垃圾，如果一个对象没有任
 
@@ -1318,7 +1318,7 @@ GC是由JVM自动完成的，根据JVM系统环境而定，所以时机是不确
 
 2.5.3.1标记-清除(Mark-Sweep)
 
-![PDF 第 29 页图片](pdf-media/page-029-image-01.png)
+![PDF 第 29 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-029-image-01.png)
 
 标记
 
@@ -1346,11 +1346,11 @@ GC是由JVM自动完成的，根据JVM系统环境而定，所以时机是不确
 
 将内存划分为两块相等的区域，每次只使用其中一块，如下图所示：
 
-![PDF 第 30 页图片](pdf-media/page-030-image-01.png)
+![PDF 第 30 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-030-image-01.png)
 
-![PDF 第 30 页图片](pdf-media/page-030-image-02.png)
+![PDF 第 30 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-030-image-02.png)
 
-![PDF 第 30 页图片](pdf-media/page-030-image-03.png)
+![PDF 第 30 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-030-image-03.png)
 
 当其中一块内存使用完了，就将还存活的对象复制到另外一块上面，然后把已经使用过的内存空间一次
 
@@ -1378,11 +1378,11 @@ GC是由JVM自动完成的，根据JVM系统环境而定，所以时机是不确
 
 既然上面介绍了3中垃圾收集算法，那么在堆内存中到底用哪一个呢？
 
-![PDF 第 31 页图片](pdf-media/page-031-image-01.png)
+![PDF 第 31 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-031-image-01.png)
 
-![PDF 第 31 页图片](pdf-media/page-031-image-02.png)
+![PDF 第 31 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-031-image-02.png)
 
-![PDF 第 31 页图片](pdf-media/page-031-image-03.png)
+![PDF 第 31 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-031-image-03.png)
 
 Young区：复制算法(对象在被分配之后，可能生命周期比较短，Young区复制效率比较高)
 
@@ -1412,7 +1412,7 @@ Serial收集器是最基本、发展历史最悠久的收集器，曾经（在JD
 
 应用：Client模式下的默认新生代收集器
 
-![PDF 第 32 页图片](pdf-media/page-032-image-01.png)
+![PDF 第 32 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-032-image-01.png)
 
 2.5.5.2 Serial Old
 
@@ -1434,9 +1434,9 @@ Serial Old收集器是Serial收集器的老年代版本，也是一个单线程�
 
 应用：运行在Server模式下的虚拟机中首选的新生代收集器
 
-![PDF 第 33 页图片](pdf-media/page-033-image-01.png)
+![PDF 第 33 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-033-image-01.png)
 
-![PDF 第 33 页图片](pdf-media/page-033-image-02.png)
+![PDF 第 33 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-033-image-02.png)
 
 2.5.5.4 Parallel Scavenge
 
@@ -1482,7 +1482,7 @@ CMS(Concurrent Mark Sweep)收集器是一种以获取最短回收停顿时间为
 
 浮动垃圾
 
-![PDF 第 34 页图片](pdf-media/page-034-image-01.png)
+![PDF 第 34 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-034-image-01.png)
 
 由于整个过程中，并发标记和并发清除，收集器线程可以与用户线程一起工作，所以总体上来
 
@@ -1522,9 +1522,9 @@ arbage_first_garbage_collection
 
 工作过程可以分为如下几步
 
-![PDF 第 35 页图片](pdf-media/page-035-image-01.png)
+![PDF 第 35 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-035-image-01.png)
 
-![PDF 第 35 页图片](pdf-media/page-035-image-02.png)
+![PDF 第 35 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-035-image-02.png)
 
 初始标记（InitialMarking）标记以下GCRoots能够关联的对象，并且修改TAMS的值，需要暂
 
@@ -1572,9 +1572,9 @@ JDK11新引入的ZGC收集器，不管是物理上还是逻辑上，ZGC中已经
 
 多条垃圾收集线程并行工作，但此时用户线程仍然处于等待状态。
 
-![PDF 第 36 页图片](pdf-media/page-036-image-01.png)
+![PDF 第 36 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-036-image-01.png)
 
-![PDF 第 36 页图片](pdf-media/page-036-image-02.png)
+![PDF 第 36 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-036-image-02.png)
 
 适用于科学计算、后台处理等若交互场景。
 
@@ -1690,9 +1690,9 @@ G1中的RSet
 
 非标准参数，也就是在JDK各个版本中可能会变动
 
-![PDF 第 38 页图片](pdf-media/page-038-image-01.png)
+![PDF 第 38 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-038-image-01.png)
 
-![PDF 第 38 页图片](pdf-media/page-038-image-02.png)
+![PDF 第 38 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-038-image-02.png)
 
 -Xint解释执行
 
@@ -1734,9 +1734,9 @@ b.非Boolean类型
 
 java -XX:+PrintFlagsFinal -version > flags.txt
 
-![PDF 第 39 页图片](pdf-media/page-039-image-01.png)
+![PDF 第 39 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-039-image-01.png)
 
-![PDF 第 39 页图片](pdf-media/page-039-image-02.png)
+![PDF 第 39 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-039-image-02.png)
 
 值得注意的是"="表示默认值，":="表示被用户或JVM修改后的值
 
@@ -1790,7 +1790,7 @@ web容器比如tomcat，可以在脚本中的进行设置
 
 3.1.8常用参数含义
 
-![PDF 第 40 页图片](pdf-media/page-040-image-01.png)
+![PDF 第 40 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-040-image-01.png)
 
 参数含义说明
 
@@ -1884,7 +1884,7 @@ accesspermissions.
 
 3.2.2 jinfo
 
-![PDF 第 41 页图片](pdf-media/page-041-image-01.png)
+![PDF 第 41 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-041-image-01.png)
 
 （1）实时查看和调整JVM配置参数
 
@@ -1930,9 +1930,9 @@ vmidoption.
 
 jstat-classPID100010查看某个java进程的类装载信息，每1000毫秒输出一次，共输出10次
 
-![PDF 第 42 页图片](pdf-media/page-042-image-01.png)
+![PDF 第 42 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-042-image-01.png)
 
-![PDF 第 42 页图片](pdf-media/page-042-image-02.png)
+![PDF 第 42 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-042-image-02.png)
 
 （3）查看垃圾收集信息
 
@@ -1950,11 +1950,11 @@ process,corefile,orremotedebugserver.
 
 jstackPID
 
-![PDF 第 43 页图片](pdf-media/page-043-image-01.png)
+![PDF 第 43 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-043-image-01.png)
 
-![PDF 第 43 页图片](pdf-media/page-043-image-02.png)
+![PDF 第 43 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-043-image-02.png)
 
-![PDF 第 43 页图片](pdf-media/page-043-image-03.png)
+![PDF 第 43 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-043-image-03.png)
 
 (4)排查死锁案例
 
@@ -2080,11 +2080,11 @@ specifiedprocess,corefile,orremotedebugserver.
 
 jmap-heapPID
 
-![PDF 第 45 页图片](pdf-media/page-045-image-01.png)
+![PDF 第 45 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-045-image-01.png)
 
-![PDF 第 45 页图片](pdf-media/page-045-image-02.png)
+![PDF 第 45 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-045-image-02.png)
 
-![PDF 第 45 页图片](pdf-media/page-045-image-03.png)
+![PDF 第 45 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-045-image-03.png)
 
 jinfo-flagUsePSAdaptiveSurvivorSizePolicy35352
 
@@ -2110,9 +2110,9 @@ jmap-dump:format=b,file=heap.hprofPID
 
 3.3常用工具
 
-![PDF 第 46 页图片](pdf-media/page-046-image-01.png)
+![PDF 第 46 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-046-image-01.png)
 
-![PDF 第 46 页图片](pdf-media/page-046-image-02.png)
+![PDF 第 46 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-046-image-02.png)
 
 参数也了解了，命令也知道了，关键是用起来不是很方便，要是有图形化的界面就好了。
 
@@ -2442,7 +2442,7 @@ Sets.
 
 14.0M(256.0M)->3752.5K(256.0M)]
 
-![PDF 第 51 页图片](pdf-media/page-051-image-01.png)
+![PDF 第 51 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-051-image-01.png)
 
 3.3.5.2 GCViewer
 
@@ -2452,9 +2452,9 @@ java -jar gcviewer-1.36-SNAPSHOT.jar
 
 http://gceasy.io
 
-![PDF 第 52 页图片](pdf-media/page-052-image-01.png)
+![PDF 第 52 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-052-image-01.png)
 
-![PDF 第 52 页图片](pdf-media/page-052-image-02.png)
+![PDF 第 52 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-052-image-02.png)
 
 3.3.5.4 gcplot
 
@@ -2476,9 +2476,9 @@ javac编译器将Person.java源码文件编译成class文件[我们把这里的�
 
 上，那么由字节码转变为机器码是谁来做的呢？说白了就是谁来执行这些字节码指令的呢？这就是执行引擎。
 
-![PDF 第 53 页图片](pdf-media/page-053-image-01.png)
+![PDF 第 53 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-053-image-01.png)
 
-![PDF 第 53 页图片](pdf-media/page-053-image-02.png)
+![PDF 第 53 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-053-image-02.png)
 
 3.4.1解释执行
 
@@ -2520,7 +2520,7 @@ C2再次编译
 
 3.4.5 AOT和Graal VM
 
-![PDF 第 54 页图片](pdf-media/page-054-image-01.png)
+![PDF 第 54 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-054-image-01.png)
 
 3.4.5.1 AOT
 
@@ -2582,9 +2582,9 @@ Graal既可以作为动态编译器，在运行时编译热点方法；也可以
 
 JVM Architecture：https://www.oracle.com/technetwork/tutorials/tutorials-1876574.html
 
-![PDF 第 56 页图片](pdf-media/page-056-image-01.png)
+![PDF 第 56 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-056-image-01.png)
 
-![PDF 第 56 页图片](pdf-media/page-056-image-02.png)
+![PDF 第 56 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-056-image-02.png)
 
 04性能优化
 
@@ -2612,9 +2612,9 @@ JVM的性能优化可以分为代码层面和非代码层面。
 
 每台机器配置2c4G，以每秒3000笔订单为例，整个过程持续60秒
 
-![PDF 第 57 页图片](pdf-media/page-057-image-01.png)
+![PDF 第 57 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-057-image-01.png)
 
-![PDF 第 57 页图片](pdf-media/page-057-image-02.png)
+![PDF 第 57 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-057-image-02.png)
 
 4.1.2内存溢出(OOM)
 
@@ -2852,7 +2852,7 @@ Metaspace区域引起的。可以通过MetaspaceSize适当增加其大家，比�
 
 （3）major gc和full gc的区别
 
-![PDF 第 61 页图片](pdf-media/page-061-image-01.png)
+![PDF 第 61 页图片](/images/pdf-imports/2026-05-26-jvm从入门到放弃/page-061-image-01.png)
 
 MajorGC在很多参考资料中是等价于FullGC的，我们也可以发现很多性能监测工具中只有MinorGC
 

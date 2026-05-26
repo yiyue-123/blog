@@ -26,7 +26,7 @@ hugo new posts/2026-05-24-文章标题/index.md
 
 ## 导入 PDF
 
-后台地址 `/admin/pdf-importer.html` 支持选择 PDF 文件生成 Hugo 文章内容，并把 PDF 中解析出的图片保存到同一篇文章目录下的 `pdf-media/` 文件夹。登录后台后，解析完成可以直接保存到线上仓库；也支持本地浏览器直接写入项目目录，或下载包含 `content/posts/<日期-目录名>/index.md` 和媒体文件的内容包。
+后台地址 `/admin/pdf-importer.html` 支持选择 PDF 文件生成 Hugo 文章内容，并把 PDF 中解析出的图片保存到 `static/images/pdf-imports/<日期-目录名>/`，正文使用 `/images/pdf-imports/...` 加载图片。登录后台后，解析完成可以直接保存到线上仓库；也支持本地浏览器直接写入项目目录，或下载包含文章和媒体文件的内容包。
 
 ## 配置
 
