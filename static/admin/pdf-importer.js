@@ -16,6 +16,7 @@ const els = {
   draft: document.querySelector("#post-draft"),
   skipSmallImages: document.querySelector("#skip-small-images"),
   parse: document.querySelector("#parse-pdf"),
+  onlineSave: document.querySelector("#save-online"),
   save: document.querySelector("#save-project"),
   download: document.querySelector("#download-zip"),
   status: document.querySelector("#status"),
@@ -26,7 +27,14 @@ const els = {
 };
 
 const PDFJS_VERSION = "4.10.38";
+const GOTRUE_VERSION = "1.0.1";
+const CMS_BACKEND = {
+  branch: "main",
+  identityUrl: "https://auth.decapbridge.com/sites/84ef01ab-ee03-4f5a-b3ef-027f3749eeca",
+  gatewayUrl: "https://gateway.decapbridge.com",
+};
 let pdfjsPromise;
+let goTruePromise;
 
 init();
 
@@ -56,6 +64,7 @@ function init() {
   ].forEach((el) => el.addEventListener("input", rebuildMarkdownFromCurrentState));
 
   els.parse.addEventListener("click", parseSelectedPdf);
+  els.onlineSave.addEventListener("click", saveToOnlineRepository);
   els.save.addEventListener("click", saveToLocalProject);
   els.download.addEventListener("click", downloadZip);
 }
@@ -116,6 +125,7 @@ async function parseSelectedPdf() {
     els.preview.value = state.markdown;
     renderMediaGrid();
     updateOutputPath();
+    els.onlineSave.disabled = false;
     els.save.disabled = false;
     els.download.disabled = false;
     setStatus(`解析完成：${pdf.numPages} 页，${images.length} 张图片。`);
@@ -397,6 +407,8 @@ async function saveToLocalProject() {
     return;
   }
 
+  syncMarkdownFromPreview();
+
   if (!("showDirectoryPicker" in window)) {
     setStatus("当前浏览器不支持直接保存到本地项目，请使用下载内容包。", true);
     return;
@@ -430,6 +442,217 @@ async function saveToLocalProject() {
   }
 }
 
+async function saveToOnlineRepository() {
+  if (!state.markdown) {
+    return;
+  }
+
+  syncMarkdownFromPreview();
+
+  try {
+    setBusy(true);
+    setStatus("正在检查登录状态。");
+
+    const token = await getIdentityToken();
+    const apiRoot = await getGatewayApiRoot(token);
+    const files = [
+      ...state.images.map((image) => ({
+        path: `${state.postDir}/${image.name}`,
+        content: () => blobToBase64(image.blob),
+      })),
+      {
+        path: `${state.postDir}/index.md`,
+        content: () => textToBase64(state.markdown),
+      },
+    ];
+
+    for (let index = 0; index < files.length; index += 1) {
+      const file = files[index];
+      setStatus(`正在保存 ${index + 1}/${files.length}：${file.path}`);
+      await putGatewayFile({
+        apiRoot,
+        token,
+        branch: CMS_BACKEND.branch,
+        path: file.path,
+        content: await file.content(),
+        message: buildOnlineCommitMessage(file.path),
+      });
+    }
+
+    setStatus(`已保存到线上仓库：${state.postDir}/index.md。`);
+  } catch (error) {
+    console.error(error);
+    setStatus(error.message || "线上保存失败。", true);
+  } finally {
+    setBusy(false);
+  }
+}
+
+async function getGatewayApiRoot(token) {
+  const settings = await gatewayFetch(`${CMS_BACKEND.gatewayUrl}/settings`, token);
+  if (settings.github_enabled) {
+    return `${CMS_BACKEND.gatewayUrl}/github`;
+  }
+
+  throw new Error("当前 Git Gateway 未启用 GitHub 后端，无法线上保存。");
+}
+
+async function putGatewayFile({ apiRoot, token, branch, path, content, message }) {
+  const encodedPath = path.split("/").map(encodeURIComponent).join("/");
+  const existing = await getGatewayFileSha(apiRoot, token, branch, encodedPath);
+  const body = {
+    message,
+    content,
+    branch,
+  };
+
+  if (existing) {
+    body.sha = existing;
+  }
+
+  await gatewayFetch(`${apiRoot}/contents/${encodedPath}`, token, {
+    method: "PUT",
+    body: JSON.stringify(body),
+  });
+}
+
+async function getGatewayFileSha(apiRoot, token, branch, encodedPath) {
+  try {
+    const file = await gatewayFetch(`${apiRoot}/contents/${encodedPath}?ref=${encodeURIComponent(branch)}`, token);
+    return file.sha || null;
+  } catch (error) {
+    if (error.status === 404) {
+      return null;
+    }
+    throw error;
+  }
+}
+
+async function gatewayFetch(url, token, options = {}) {
+  const response = await fetch(url, {
+    ...options,
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+      ...(options.headers || {}),
+    },
+  });
+
+  const text = await response.text();
+  const data = text ? safeJsonParse(text) : null;
+
+  if (!response.ok) {
+    const error = new Error(data?.message || text || `请求失败：${response.status}`);
+    error.status = response.status;
+    throw error;
+  }
+
+  return data;
+}
+
+async function getIdentityToken() {
+  const goTrueUser = await getGoTrueCurrentUser();
+  if (goTrueUser) {
+    return goTrueUser.jwt();
+  }
+
+  const user = getStoredGoTrueUser();
+
+  if (!user?.token?.access_token) {
+    throw new Error("请先在后台登录 Decap CMS，然后回到此页面保存。");
+  }
+
+  if (user.token.expires_at && user.token.expires_at <= Date.now() + 60000) {
+    return refreshIdentityToken(user);
+  }
+
+  return user.token.access_token;
+}
+
+async function refreshIdentityToken(user) {
+  if (!user.token.refresh_token) {
+    throw new Error("登录已过期，请先在后台重新登录。");
+  }
+
+  const body = new URLSearchParams({
+    grant_type: "refresh_token",
+    refresh_token: user.token.refresh_token,
+  });
+
+  const response = await fetch(`${CMS_BACKEND.identityUrl}/token`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body,
+  });
+  const data = await response.json().catch(() => null);
+
+  if (!response.ok || !data?.access_token) {
+    localStorage.removeItem("gotrue.user");
+    throw new Error("登录已过期，请先在后台重新登录。");
+  }
+
+  const expiresAt = Date.now() + (data.expires_in || 3600) * 1000;
+  const nextUser = {
+    ...user,
+    ...(data.user || {}),
+    token: {
+      ...user.token,
+      access_token: data.access_token,
+      refresh_token: data.refresh_token || user.token.refresh_token,
+      token_type: data.token_type || user.token.token_type || "bearer",
+      expires_in: data.expires_in || user.token.expires_in,
+      expires_at: expiresAt,
+    },
+  };
+
+  localStorage.setItem("gotrue.user", JSON.stringify(nextUser));
+  return nextUser.token.access_token;
+}
+
+async function getGoTrueCurrentUser() {
+  try {
+    if (!goTruePromise) {
+      goTruePromise = import(`https://cdn.jsdelivr.net/npm/gotrue-js@${GOTRUE_VERSION}/lib/index.js`);
+    }
+
+    const { default: GoTrue } = await goTruePromise;
+    const goTrue = new GoTrue({ APIUrl: CMS_BACKEND.identityUrl });
+    return goTrue.currentUser();
+  } catch (error) {
+    console.warn("Unable to restore GoTrue user with library fallback.", error);
+    return null;
+  }
+}
+
+function getStoredGoTrueUser() {
+  const direct = safeJsonParse(localStorage.getItem("gotrue.user"));
+  if (direct?.token?.access_token) {
+    return direct;
+  }
+
+  for (let index = 0; index < localStorage.length; index += 1) {
+    const key = localStorage.key(index);
+    const value = safeJsonParse(localStorage.getItem(key));
+    if (value?.token?.access_token && value?.token?.refresh_token) {
+      return value;
+    }
+  }
+
+  return null;
+}
+
+function buildOnlineCommitMessage(path) {
+  if (path.endsWith("/index.md")) {
+    return `Create PDF post "${els.title.value.trim() || getPostFolderName()}"`;
+  }
+
+  return `Upload PDF media "${path}"`;
+}
+
 async function assertProjectRoot(directory) {
   try {
     await directory.getFileHandle("hugo.toml");
@@ -449,6 +672,8 @@ async function downloadZip() {
   if (!state.markdown || !window.JSZip) {
     return;
   }
+
+  syncMarkdownFromPreview();
 
   try {
     setBusy(true);
@@ -489,11 +714,16 @@ function renderMediaGrid() {
   }
 }
 
+function syncMarkdownFromPreview() {
+  state.markdown = els.preview.value;
+}
+
 function clearGeneratedContent() {
   state.images.forEach((image) => URL.revokeObjectURL(image.previewUrl));
   state.images = [];
   state.markdown = "";
   els.preview.value = "";
+  els.onlineSave.disabled = true;
   els.save.disabled = true;
   els.download.disabled = true;
   renderMediaGrid();
@@ -512,6 +742,7 @@ function getPostFolderName() {
 
 function setBusy(isBusy) {
   els.parse.disabled = isBusy;
+  els.onlineSave.disabled = isBusy || !state.markdown;
   els.save.disabled = isBusy || !state.markdown;
   els.download.disabled = isBusy || !state.markdown;
 }
@@ -545,6 +776,35 @@ function stripExtension(value) {
 
 function yamlString(value) {
   return `"${String(value).replace(/\\/g, "\\\\").replace(/"/g, '\\"')}"`;
+}
+
+function safeJsonParse(value) {
+  try {
+    return JSON.parse(value);
+  } catch {
+    return null;
+  }
+}
+
+function textToBase64(value) {
+  const bytes = new TextEncoder().encode(value);
+  let binary = "";
+  bytes.forEach((byte) => {
+    binary += String.fromCharCode(byte);
+  });
+
+  return btoa(binary);
+}
+
+async function blobToBase64(blob) {
+  const dataUrl = await new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = () => reject(reader.error);
+    reader.readAsDataURL(blob);
+  });
+
+  return String(dataUrl).split(",", 2)[1];
 }
 
 function toDatetimeLocal(date) {
