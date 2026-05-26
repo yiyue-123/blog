@@ -63,6 +63,10 @@ function init() {
     els.draft,
   ].forEach((el) => el.addEventListener("input", rebuildMarkdownFromCurrentState));
 
+  els.preview.addEventListener("input", () => {
+    syncMarkdownFromPreview();
+    updateActionButtons();
+  });
   els.parse.addEventListener("click", parseSelectedPdf);
   els.onlineSave.addEventListener("click", saveToOnlineRepository);
   els.save.addEventListener("click", saveToLocalProject);
@@ -125,9 +129,7 @@ async function parseSelectedPdf() {
     els.preview.value = state.markdown;
     renderMediaGrid();
     updateOutputPath();
-    els.onlineSave.disabled = false;
-    els.save.disabled = false;
-    els.download.disabled = false;
+    updateActionButtons();
     setStatus(`解析完成：${pdf.numPages} 页，${images.length} 张图片。`);
   } catch (error) {
     console.error(error);
@@ -403,11 +405,12 @@ function rebuildMarkdownFromCurrentState() {
 }
 
 async function saveToLocalProject() {
-  if (!state.markdown) {
+  syncMarkdownFromPreview();
+
+  if (!hasGeneratedContent()) {
+    setStatus("请先解析 PDF，再保存。", true);
     return;
   }
-
-  syncMarkdownFromPreview();
 
   if (!("showDirectoryPicker" in window)) {
     setStatus("当前浏览器不支持直接保存到本地项目，请使用下载内容包。", true);
@@ -443,11 +446,12 @@ async function saveToLocalProject() {
 }
 
 async function saveToOnlineRepository() {
-  if (!state.markdown) {
+  syncMarkdownFromPreview();
+
+  if (!hasGeneratedContent()) {
+    setStatus("请先解析 PDF，再保存到线上仓库。", true);
     return;
   }
-
-  syncMarkdownFromPreview();
 
   try {
     setBusy(true);
@@ -669,11 +673,14 @@ async function writeFile(directory, name, blob) {
 }
 
 async function downloadZip() {
-  if (!state.markdown || !window.JSZip) {
+  syncMarkdownFromPreview();
+
+  if (!hasGeneratedContent() || !window.JSZip) {
+    if (!hasGeneratedContent()) {
+      setStatus("请先解析 PDF，再下载内容包。", true);
+    }
     return;
   }
-
-  syncMarkdownFromPreview();
 
   try {
     setBusy(true);
@@ -718,14 +725,16 @@ function syncMarkdownFromPreview() {
   state.markdown = els.preview.value;
 }
 
+function hasGeneratedContent() {
+  return Boolean((state.markdown || els.preview.value).trim());
+}
+
 function clearGeneratedContent() {
   state.images.forEach((image) => URL.revokeObjectURL(image.previewUrl));
   state.images = [];
   state.markdown = "";
   els.preview.value = "";
-  els.onlineSave.disabled = true;
-  els.save.disabled = true;
-  els.download.disabled = true;
+  updateActionButtons();
   renderMediaGrid();
 }
 
@@ -741,10 +750,15 @@ function getPostFolderName() {
 }
 
 function setBusy(isBusy) {
+  updateActionButtons(isBusy);
+}
+
+function updateActionButtons(isBusy = false) {
+  const hasContent = hasGeneratedContent();
   els.parse.disabled = isBusy;
-  els.onlineSave.disabled = isBusy || !state.markdown;
-  els.save.disabled = isBusy || !state.markdown;
-  els.download.disabled = isBusy || !state.markdown;
+  els.onlineSave.disabled = isBusy || !hasContent;
+  els.save.disabled = isBusy || !hasContent;
+  els.download.disabled = isBusy || !hasContent;
 }
 
 function setStatus(message, isError = false) {
