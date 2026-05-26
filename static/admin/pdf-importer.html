@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PDF 导入 - yiyue.tech</title>
+  <link rel="stylesheet" href="./pdf-importer.css" />
+</head>
+<body>
+  <header class="topbar">
+    <a href="./" class="back-link">返回后台</a>
+    <h1>PDF 导入</h1>
+  </header>
+
+  <main class="shell">
+    <section class="panel import-panel">
+      <div class="field full">
+        <label for="pdf-file">PDF 文件</label>
+        <input id="pdf-file" type="file" accept="application/pdf,.pdf" />
+      </div>
+
+      <div class="field">
+        <label for="post-title">标题</label>
+        <input id="post-title" type="text" autocomplete="off" />
+      </div>
+
+      <div class="field">
+        <label for="post-slug">目录名</label>
+        <input id="post-slug" type="text" autocomplete="off" />
+      </div>
+
+      <div class="field">
+        <label for="post-date">发布日期</label>
+        <input id="post-date" type="datetime-local" />
+      </div>
+
+      <div class="field">
+        <label for="post-categories">分类</label>
+        <input id="post-categories" type="text" autocomplete="off" placeholder="技术, 随笔" />
+      </div>
+
+      <div class="field">
+        <label for="post-tags">标签</label>
+        <input id="post-tags" type="text" autocomplete="off" placeholder="PDF, 笔记" />
+      </div>
+
+      <div class="field full">
+        <label for="post-description">摘要</label>
+        <textarea id="post-description" rows="3"></textarea>
+      </div>
+
+      <div class="toggles full">
+        <label>
+          <input id="post-draft" type="checkbox" checked />
+          保存为草稿
+        </label>
+        <label>
+          <input id="skip-small-images" type="checkbox" checked />
+          忽略小图标
+        </label>
+      </div>
+
+      <div class="actions full">
+        <button id="parse-pdf" type="button">解析 PDF</button>
+        <button id="save-project" type="button" disabled>保存到本地项目</button>
+        <button id="download-zip" type="button" disabled>下载内容包</button>
+      </div>
+
+      <output id="status" class="status full">请选择一个 PDF 文件。</output>
+    </section>
+
+    <section class="panel preview-panel">
+      <div class="preview-head">
+        <h2>生成内容</h2>
+        <span id="output-path">content/posts/</span>
+      </div>
+      <textarea id="markdown-preview" spellcheck="false"></textarea>
+    </section>
+
+    <section class="panel media-panel">
+      <div class="preview-head">
+        <h2>媒体</h2>
+        <span id="media-count">0 张图片</span>
+      </div>
+      <div id="media-grid" class="media-grid"></div>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+  <script type="module" src="./pdf-importer.js"></script>
+</body>
+</html>

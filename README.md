@@ -24,6 +24,10 @@ hugo new posts/2026-05-24-文章标题/index.md
 
 文章会生成到 `content/posts/` 下。把 front matter 里的 `draft` 改为 `false` 后即可发布。
 
+## 导入 PDF
+
+后台地址 `/admin/pdf-importer.html` 支持选择 PDF 文件生成 Hugo 文章内容，并把 PDF 中解析出的图片保存到同一篇文章目录下的 `pdf-media/` 文件夹。支持本地浏览器直接写入项目目录；不支持时可以下载包含 `content/posts/<日期-目录名>/index.md` 和媒体文件的内容包。
+
 ## 配置
 
 - 修改 `hugo.toml` 里的 `baseURL`、`title`、`params.author` 和 `params.description`。
