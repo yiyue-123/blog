@@ -3,9 +3,9 @@ title: 树——简单
 date: 2026-05-25T21:10:00+08:00
 draft: false
 categories:
-  - 树
-tags:
   - LeetCode
+tags:
+  - 树
 ---
 树的最大深度
 
