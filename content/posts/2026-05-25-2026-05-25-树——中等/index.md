@@ -3,9 +3,9 @@ title: 树——中等
 date: 2026-05-25T21:46:00+08:00
 draft: false
 categories:
-  - 树
-tags:
   - LeetCode
+tags:
+  - 树
 ---
 验证二叉搜索树
 
