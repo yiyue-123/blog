@@ -7,4 +7,16 @@ categories:
 tags:
   - 双指针
 ---
-1
+两数之和
+```java
+public int[] twoSum(int[] nums, int target) {
+        Map<Integer, Integer> hashTable = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            if (hashTable.containsKey((target - nums[i]))) {
+                return new int[]{hashTable.get(target - nums[i]), i};
+            }
+            hashTable.put(nums[i], i);
+        }
+        return null;
+    }
+```
