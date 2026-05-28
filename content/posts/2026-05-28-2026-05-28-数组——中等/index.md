@@ -3,7 +3,7 @@ title: 数组——中等
 date: 2026-05-28T16:02:00+08:00
 draft: false
 categories:
-  - 数组
+  - 数组、前缀积与后缀积
 tags:
   - LeetCode
 ---
