@@ -5,7 +5,7 @@ draft: false
 categories:
   - LeetCode
 tags:
-  - 数组、前缀积与后缀积、前缀和
+  - 数组、前缀积与后缀积、前缀和、快速选择
 ---
 除自身外数组的乘积
 
@@ -58,8 +58,6 @@ tags:
     }
 ```
 
-
-
 和为 K 的子数组
 
 ```java
@@ -85,8 +83,6 @@ public int subarraySum(int[] nums, int k) {
         return ans;
     }
 ```
-
-
 
 最长连续序列
 
@@ -122,5 +118,31 @@ public int longestConsecutive(int[] nums) {
             maxlength = Math.max(maxlength, currentlength);
         }
         return maxlength;
+    }
+```
+
+
+
+数组中第k个最大元素
+
+```java
+int quickselect(int[] nums, int l, int r, int k) {
+        if (l == r) return nums[k];
+        int x = nums[l], i = l - 1, j = r + 1;
+        while (i < j) {
+            do i++; while (nums[i] < x);
+            do j--; while (nums[j] > x);
+            if (i < j){
+                int tmp = nums[i];
+                nums[i] = nums[j];
+                nums[j] = tmp;
+            }
+        }
+        if (k <= j) return quickselect(nums, l, j, k);
+        else return quickselect(nums, j + 1, r, k);
+    }
+    public int findKthLargest(int[] _nums, int k) {
+        int n = _nums.length;
+        return quickselect(_nums, 0, n - 1, n - k);
     }
 ```
