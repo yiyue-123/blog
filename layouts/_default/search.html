@@ -1,0 +1,86 @@
+{{ define "main" }}
+<section class="intro">
+  <h1 class="page-title">搜索</h1>
+</section>
+
+<div class="search-wrap">
+  <input
+    id="search-input"
+    class="search-input"
+    type="search"
+    placeholder="输入文章标题关键词…"
+    autofocus
+    autocomplete="off"
+    aria-label="搜索文章"
+  >
+  <p id="search-count" class="search-count" aria-live="polite"></p>
+  <ul id="search-results" class="search-results" role="list"></ul>
+</div>
+
+<script>
+(function () {
+  const input   = document.getElementById('search-input');
+  const results = document.getElementById('search-results');
+  const count   = document.getElementById('search-count');
+
+  // 内嵌文章索引（Hugo 模板生成，草稿在生产构建中不存在）
+  const posts = [
+    {{ range where site.RegularPages "Section" "posts" -}}
+    { "title": {{ .Title | jsonify }}, "url": {{ .RelPermalink | jsonify }}, "date": {{ .Date.Format "2006-01-02" | jsonify }}, "categories": {{ .Params.categories | jsonify }}, "tags": {{ .Params.tags | jsonify }} },
+    {{ end -}}
+  ];
+
+  function render(query) {
+    const q = query.trim().toLowerCase();
+    results.innerHTML = '';
+
+    if (!q) {
+      count.textContent = '';
+      return;
+    }
+
+    const matched = posts.filter(p => p.title.toLowerCase().includes(q));
+    count.textContent = matched.length ? '找到 ' + matched.length + ' 篇' : '没有匹配的文章';
+
+    matched.forEach(function (p) {
+      const li = document.createElement('li');
+      li.className = 'search-result-item';
+
+      const cats = (p.categories || []).join(' / ');
+      const tags = (p.tags || []).map(t => '#' + t).join(' ');
+
+      li.innerHTML =
+        '<a href="' + escHtml(p.url) + '">' + escHtml(p.title) + '</a>' +
+        '<span class="search-meta">' +
+          escHtml(p.date) +
+          (cats ? ' · ' + escHtml(cats) : '') +
+          (tags ? ' <span class="search-tags">' + escHtml(tags) + '</span>' : '') +
+        '</span>';
+
+      results.appendChild(li);
+    });
+  }
+
+  function escHtml(s) {
+    return String(s)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  // URL 参数 ?q= 支持直接跳转
+  const params = new URLSearchParams(location.search);
+  const initial = params.get('q') || '';
+  if (initial) { input.value = initial; render(initial); }
+
+  input.addEventListener('input', function () {
+    const q = input.value;
+    const url = new URL(location.href);
+    q ? url.searchParams.set('q', q) : url.searchParams.delete('q');
+    history.replaceState(null, '', url);
+    render(q);
+  });
+})();
+</script>
+{{ end }}
