@@ -5,7 +5,7 @@ draft: false
 categories:
   - LeetCode
 tags:
-  - "#前缀积#后缀积"
+  - 前缀积#后缀积
 ---
 ```java
 /*
