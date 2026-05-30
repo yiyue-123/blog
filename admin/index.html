@@ -31,5 +31,68 @@
   <a class="pdf-import-link" href="./pdf-importer.html" aria-label="导入 PDF">导入 PDF</a>
   <script src="./cms-media-cleanup.js"></script>
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  <script>
+  // 标签多分隔符支持：输入 tag1|tag2 或 tag1#tag2 时自动拆分为多个标签
+  (function () {
+    function installTagSplitter() {
+      // Decap CMS 的标签输入框是动态渲染的，需要轮询等待
+      const interval = setInterval(function () {
+        // 找到所有标签 widget 的输入框（class 包含 TagsControl 或 type=text 在 tags 容器内）
+        const tagInputs = document.querySelectorAll('[class*="TagsControl"] input[type="text"], [data-testid="tag-input"]');
+        if (!tagInputs.length) return;
+
+        tagInputs.forEach(function (input) {
+          if (input.dataset.splitInstalled) return;
+          input.dataset.splitInstalled = '1';
+
+          input.addEventListener('keydown', function (e) {
+            if (e.key !== 'Enter' && e.key !== ' ') return;
+            const raw = input.value.trim();
+            if (!raw) return;
+            // 检测是否含分隔符
+            if (!/[|#]/.test(raw)) return;
+
+            e.preventDefault();
+            e.stopPropagation();
+
+            const parts = raw.split(/[|#]/).map(s => s.trim()).filter(Boolean);
+            if (parts.length < 2) return;
+
+            // 逐个触发：先清空，再依次输入每个 tag 并按 Enter
+            let i = 0;
+            function addNext() {
+              if (i >= parts.length) return;
+              const tag = parts[i++];
+              // 设置 React 受控值
+              const nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set;
+              nativeInputValueSetter.call(input, tag);
+              input.dispatchEvent(new Event('input', { bubbles: true }));
+              // 短暂延迟后触发 Enter 让 CMS 确认这个 tag
+              setTimeout(function () {
+                input.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true, cancelable: true }));
+                input.dispatchEvent(new KeyboardEvent('keyup',  { key: 'Enter', bubbles: true }));
+                setTimeout(addNext, 80);
+              }, 80);
+            }
+            // 先清空输入框
+            const nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set;
+            nativeInputValueSetter.call(input, '');
+            input.dispatchEvent(new Event('input', { bubbles: true }));
+            setTimeout(addNext, 50);
+          });
+        });
+      }, 800);
+
+      // 60 秒后停止轮询（CMS 已完全加载）
+      setTimeout(function () { clearInterval(interval); }, 60000);
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', installTagSplitter);
+    } else {
+      installTagSplitter();
+    }
+  })();
+  </script>
 </body>
 </html>
