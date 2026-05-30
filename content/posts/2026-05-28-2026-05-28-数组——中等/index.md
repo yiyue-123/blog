@@ -7,7 +7,7 @@ categories:
 tags:
   - 数组、前缀积与后缀积、前缀和、快速选择、动态规划
 ---
-除自身外数组的乘积
+除自身外数组的乘积（前缀积、后缀积）
 
 ```java
 /*
@@ -58,9 +58,7 @@ tags:
     }
 ```
 
-
-
-和为 K 的子数组
+和为 K 的子数组（哈希表）
 
 ```java
 /*
@@ -86,9 +84,7 @@ public int subarraySum(int[] nums, int k) {
     }
 ```
 
-
-
-最长连续序列
+最长连续序列（哈希表）
 
 ```java
 /*
@@ -125,9 +121,7 @@ public int longestConsecutive(int[] nums) {
     }
 ```
 
-
-
-数组中第k个最大元素
+数组中第k个最大元素（基于快速排序的快速选择）
 
 ```java
 int quickselect(int[] nums, int l, int r, int k) {
@@ -147,13 +141,13 @@ int quickselect(int[] nums, int l, int r, int k) {
     }
     public int findKthLargest(int[] _nums, int k) {
         int n = _nums.length;
+        // 注意 : 这里已经将第k大的元素转换成了第k小的元素。方便后续比较
         return quickselect(_nums, 0, n - 1, n - k);
     }
 ```
 
+乘积最大子数组（动态规划）
 
-
-乘积最大子数组
 ```java
 public int maxProduct(int[] nums) {
       int curMax = nums[0];
@@ -182,4 +176,27 @@ public int maxProduct(int[] nums) {
 
       return ans;
   }
+```
+
+打家劫舍（动态规划）
+
+```java
+/*
+* 动态规划 :
+* 求解偷到第n个房屋的最大价值，只有两种可能。
+* 1.不同第n个房间，前n-1个房间的价值已经达到最大值
+* 2.偷第n个房间，由前n-2个房间的最大价值加上第n个房间构成
+* */
+public int rob(int[] nums) {
+        if (nums.length == 1) {
+            return nums[0];
+        }
+        int first = nums[0], second = Math.max(nums[0], nums[1]);
+        for (int i = 2; i < nums.length; i++) {
+            int temp = second;
+            second = Math.max(first + nums[i], second);
+            first = temp;
+        }
+        return second;
+    }
 ```
