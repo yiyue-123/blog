@@ -5,7 +5,7 @@ draft: false
 categories:
   - LeetCode
 tags:
-  - 数组、前缀积与后缀积、前缀和、快速选择
+  - 数组、前缀积与后缀积、前缀和、快速选择、动态规划
 ---
 除自身外数组的乘积
 
@@ -58,6 +58,8 @@ tags:
     }
 ```
 
+
+
 和为 K 的子数组
 
 ```java
@@ -83,6 +85,8 @@ public int subarraySum(int[] nums, int k) {
         return ans;
     }
 ```
+
+
 
 最长连续序列
 
@@ -145,4 +149,37 @@ int quickselect(int[] nums, int l, int r, int k) {
         int n = _nums.length;
         return quickselect(_nums, 0, n - 1, n - k);
     }
+```
+
+
+
+乘积最大子数组
+```java
+public int maxProduct(int[] nums) {
+      int curMax = nums[0];
+      int curMin = nums[0];
+      int ans = nums[0];
+
+      for (int i = 1; i < nums.length; i++) {
+          int num = nums[i];
+
+          // 如果遇到 0，直接从头开始
+          if (num == 0) {
+              curMax = 1;
+              curMin = 1;
+              ans = Math.max(ans, 0);  // 0 至少是候选答案
+              continue;
+          }
+
+          int oldMax = curMax;
+          int oldMin = curMin;
+
+          curMax = Math.max(num, Math.max(oldMax * num, oldMin * num));
+          curMin = Math.min(num, Math.min(oldMax * num, oldMin * num));
+
+          ans = Math.max(ans, curMax);
+      }
+
+      return ans;
+  }
 ```
