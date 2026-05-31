@@ -1,5 +1,5 @@
 ---
-title: 目标和
+title: 中等——目标和
 date: 2026-05-31T11:07:00+08:00
 draft: false
 categories:
